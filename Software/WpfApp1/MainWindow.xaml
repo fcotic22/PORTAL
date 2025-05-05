@@ -4,26 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
-        mc:Ignorable="d" WindowState="Maximized" Loaded="Window_Loaded"
-        Title="PORTAL" Height="451" Width="800" Icon="/Resources/ikona.png">
+        mc:Ignorable="d" WindowState="Maximized" 
+        Title="PORTAL" Height="451" Width="800" Icon="/ikonaApp.png">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*" />
+            <ColumnDefinition/>
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
             <StackPanel Grid.Column="0" Width="200" Background="LightSeaGreen">
                 <TextBlock>Funkcije</TextBlock>
-                <Button x:Name="btnProjects" Height="30">Projekti</Button>
-                <Button x:Name="btnConstructionSites" Height="30">Gradilišta</Button>
+                <Button x:Name="btnProjects">Projekti</Button>
+                <Button x:Name="btnConstructionSites">Gradilišta</Button>
                 <TextBlock>Sredstva</TextBlock>
-                <Button x:Name="btnTools" Height="30">Alat</Button>
-                <Button x:Name="btnVehicles" Height="30">Vozila</Button>
-                <Button x:Name="btnResources" Height="30">Resursi</Button>
+                <Button x:Name="btnTools">Alat</Button>
+                <Button x:Name="btnVehicles">Vozila</Button>
+                <Button x:Name="btnResources">Resursi</Button>
                 <TextBlock>Administracija</TextBlock>
-                <Button x:Name="btnEmployees" Height="30">Zaposlenici</Button>
-                <Button x:Name="btnBuyers" Height="30">Kupci</Button>
-                <Button x:Name="btnSuppliers" Height="30">Dobavljači</Button>
+                <Button x:Name="btnEmployees">Zaposlenici</Button>
+                <Button x:Name="btnBuyers">Kupci</Button>
+                <Button x:Name="btnSuppliers">Dobavljači</Button>
                 
             </StackPanel>
             <ContentControl  Grid.Column="1" x:Name="contentPanel"></ContentControl>

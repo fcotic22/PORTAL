@@ -8,7 +8,7 @@ using WpfApp1;
 
 namespace Presentation_Layer
 {
-    public class GuiManager
+    public class GUIManager
     {
         public static MainWindow MainWindow { get; set; }
 

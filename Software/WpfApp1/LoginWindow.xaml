@@ -3,16 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Presentation_Layer" 
-        mc:Ignorable="d" 
-        Title="Dobrodošli!" Height="400" Width="700" WindowStartupLocation="CenterScreen" Icon="/Resources/ikona.png" >
+        xmlns:local="clr-namespace:Presentation_Layer"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Title="Dobrodošli!" Height="400" Width="700" WindowStartupLocation="CenterScreen" Icon="/ikonaApp.png">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="55*"/>
             <ColumnDefinition Width="45*"/>
         </Grid.ColumnDefinitions>
 
-        <Image x:Name="logoImage" Source="/Resources/portal-logo.png" />
+        <Image x:Name="logoImage" Source="/portal-grupa-logo.png"/>
 
         <TextBlock Grid.Column="1" Text="Dobrodošli!" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" 
                  FontSize="24" FontWeight="Bold" Foreground="Black" Height="32" Width="132"/>
@@ -21,9 +21,8 @@
             <TextBlock Text="Korisničko ime" FontSize="14" Margin="0,0,0,5" Foreground="Gray"/>
             <TextBox Height="30" FontSize="14" x:Name="txtUsername"/>
             <TextBlock Text="Lozinka" FontSize="14" Margin="0,20,0,5" Foreground="Gray"/>
-            <PasswordBox Height="30" FontSize="14" x:Name="txtPassword" Keyboard.KeyDown="txtPassword_KeyDown">
-            </PasswordBox>
-                    <Button Content="Prijava" Height="35" Background="Black" Foreground="White" 
+            <PasswordBox Height="30" FontSize="14" x:Name="txtPassword"/>
+            <Button Content="Prijava" Height="35" Background="Black" Foreground="White" 
                   FontSize="16" FontWeight="Bold" Cursor="Hand" Click="Button_Click" Margin="0,15,0,0"/>
             <TextBlock Margin="20,15,20,0" HorizontalAlignment="Center" Foreground="Red" Visibility="Hidden" x:Name="txtWarning" Height="16"></TextBlock>
         </StackPanel>
