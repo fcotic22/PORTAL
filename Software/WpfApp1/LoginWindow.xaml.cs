@@ -1,5 +1,6 @@
 ﻿using Bussiness_Logic_Layer;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1;
 
 namespace Presentation_Layer
 {
@@ -26,25 +28,35 @@ namespace Presentation_Layer
         {
             InitializeComponent();
         }
+        private UserService userService = new UserService();
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {}
-
-        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            var username = txtUsername.Text;
+            var password = txtPassword.Password;
 
+            var isLogged = userService.Login(username, password);
+            
+            if (username.IsNullOrEmpty() || password.IsNullOrEmpty()) 
+            {
+                txtWarning.Visibility = Visibility.Visible;
+                txtWarning.Text = "Molimo unesi sve podatke";
+            }
+            else if(!isLogged) 
+            {
+                txtWarning.Visibility = Visibility.Visible;
+                txtWarning.Text = "Unijeli ste pogrešne podatke";
+            }
+            else
+            {
+                var window = new MainWindow();
+                window.Show();
+                this.Close();
+            }
         }
-
-        private void PasswordTextBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var service = new ImageService();
-            var logo = service.GetLogo();
-            logoImage.Source = logo.imageData;
+           
         }
     }
 }

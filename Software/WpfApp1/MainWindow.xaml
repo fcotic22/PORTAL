@@ -4,16 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
-        mc:Ignorable="d" WindowState="Maximized"
-        Title="MainWindow" Height="451" Width="800">
+        mc:Ignorable="d" WindowState="Maximized" 
+        Title="PORTAL" Height="451" Width="800" Icon="/ikonaApp.png">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25*" />
-            <ColumnDefinition Width="75*" />
+            <ColumnDefinition Width="0*" />
+            <ColumnDefinition/>
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <DockPanel>
-            <StackPanel Grid.Column="0" Width="200" Background="Aqua"></StackPanel>
-            <ContentControl Grid.Column="1" x:Name="contentPanel"></ContentControl>
+        <DockPanel Grid.ColumnSpan="2">
+            <StackPanel Grid.Column="0" Width="200" Background="LightSeaGreen">
+                <TextBlock>Funkcije</TextBlock>
+                <Button x:Name="btnProjects">Projekti</Button>
+                <Button x:Name="btnConstructionSites">Gradilišta</Button>
+                <TextBlock>Sredstva</TextBlock>
+                <Button x:Name="btnTools">Alat</Button>
+                <Button x:Name="btnVehicles">Vozila</Button>
+                <Button x:Name="btnResources">Resursi</Button>
+                <TextBlock>Administracija</TextBlock>
+                <Button x:Name="btnEmployees">Zaposlenici</Button>
+                <Button x:Name="btnBuyers">Kupci</Button>
+                <Button x:Name="btnSuppliers">Dobavljači</Button>
+                
+            </StackPanel>
+            <ContentControl  Grid.Column="1" x:Name="contentPanel"></ContentControl>
         </DockPanel>
 
     </Grid>

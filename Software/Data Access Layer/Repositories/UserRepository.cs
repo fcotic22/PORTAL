@@ -14,5 +14,11 @@ namespace Data_Access_Layer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<User> GetUserByUsername(string username) 
+        { 
+            var query = from user in Entities where user.username == username select user;
+            return query;
+        }
     }
 }
