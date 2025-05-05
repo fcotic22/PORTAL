@@ -9,24 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ikonaApp.png" />
-    <None Remove="portal-grupa-logo.ico" />
-    <None Remove="portal-grupa-logo.png" />
+    <None Remove="Resources\ikona.png" />
+    <None Remove="Resources\portal-logo.png" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Bussiness Logic Layer\Bussiness Logic Layer.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UserControls\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="ikonaApp.png" />
-    <Resource Include="portal-grupa-logo.ico" />
-    <Resource Include="portal-grupa-logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +31,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ikona.png" />
+    <Resource Include="Resources\portal-logo.png" />
   </ItemGroup>
 
 </Project>

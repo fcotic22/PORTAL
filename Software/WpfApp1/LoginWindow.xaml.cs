@@ -54,9 +54,13 @@ namespace Presentation_Layer
                 this.Close();
             }
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
         {
-           
+            if (e.Key == Key.Enter) 
+            { 
+                Button_Click(sender, e);
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Bussiness_Logic_Layer;
+using Presentation_Layer;
+using Presentation_Layer.UserControls;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace WpfApp1
 {
     /// <summary>
@@ -20,6 +23,12 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            GuiManager.MainWindow = this;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            GuiManager.Open(new ProjectsUC());
         }
     }
 }
