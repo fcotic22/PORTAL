@@ -93,7 +93,7 @@ public partial class PORTAL_DBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=portalgrupa.database.windows.net;Initial Catalog=PORTAL_DB;User ID=portal_admin;Password=eutUu3i94XD!P$G;Encrypt=False");
+        => optionsBuilder.UseSqlServer("Data Source=portalgrupa.database.windows.net;Initial Catalog=PORTAL_DB;Persist Security Info=True;User ID=portal_admin;Password=eutUu3i94XD!P$G");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -395,19 +395,19 @@ public partial class PORTAL_DBContext : DbContext
 
         modelBuilder.Entity<EmployeeAssignmentCSite>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("EmployeeAssignmentCSite");
+            entity.HasKey(e => new { e.ConstructionSiteid, e.Employeeid });
+
+            entity.ToTable("EmployeeAssignmentCSite");
 
             entity.Property(e => e.assignmentEndDate).HasColumnType("date");
             entity.Property(e => e.assignmentStartDate).HasColumnType("date");
 
-            entity.HasOne(d => d.ConstructionSite).WithMany()
+            entity.HasOne(d => d.ConstructionSite).WithMany(p => p.EmployeeAssignmentCSites)
                 .HasForeignKey(d => d.ConstructionSiteid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKEmployeeAs974082");
 
-            entity.HasOne(d => d.Employee).WithMany()
+            entity.HasOne(d => d.Employee).WithMany(p => p.EmployeeAssignmentCSites)
                 .HasForeignKey(d => d.Employeeid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKEmployeeAs373115");
@@ -582,31 +582,17 @@ public partial class PORTAL_DBContext : DbContext
 
         modelBuilder.Entity<Image>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__Image__3213E83FA1599E61");
+            entity.HasKey(e => e.id).HasName("PK__Image__3213E83FE090A87E");
 
             entity.ToTable("Image");
 
-            entity.Property(e => e.imageData)
-                .IsRequired()
-                .HasColumnType("image");
-            entity.Property(e => e.imagePath)
-                .IsRequired()
-                .HasMaxLength(1000)
+            entity.Property(e => e.caption)
+                .HasMaxLength(500)
                 .IsUnicode(false);
+            entity.Property(e => e.imageData).HasColumnType("image");
             entity.Property(e => e.imageType)
-                .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.uploadDate).HasColumnType("date");
-
-            entity.HasOne(d => d.issue).WithMany(p => p.Images)
-                .HasForeignKey(d => d.issue_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKImage429720");
         });
 
         modelBuilder.Entity<Issue>(entity =>

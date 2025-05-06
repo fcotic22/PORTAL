@@ -33,6 +33,8 @@ public partial class Employee
 
     public virtual ICollection<ConstructionSite> ConstructionSites { get; set; } = new List<ConstructionSite>();
 
+    public virtual ICollection<EmployeeAssignmentCSite> EmployeeAssignmentCSites { get; set; } = new List<EmployeeAssignmentCSite>();
+
     public virtual ICollection<ToolAssignmentCsite> ToolAssignmentCsites { get; set; } = new List<ToolAssignmentCsite>();
 
     public virtual ICollection<VehicleAssignmentCSite> VehicleAssignmentCSites { get; set; } = new List<VehicleAssignmentCSite>();

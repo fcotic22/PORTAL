@@ -27,7 +27,5 @@ public partial class Issue
 
     public string priority { get; set; }
 
-    public virtual ICollection<Image> Images { get; set; } = new List<Image>();
-
     public virtual Project project { get; set; }
 }

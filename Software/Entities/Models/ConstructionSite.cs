@@ -33,6 +33,8 @@ public partial class ConstructionSite
 
     public virtual ICollection<CSiteTask> CSiteTasks { get; set; } = new List<CSiteTask>();
 
+    public virtual ICollection<EmployeeAssignmentCSite> EmployeeAssignmentCSites { get; set; } = new List<EmployeeAssignmentCSite>();
+
     public virtual ICollection<ToolAssignmentCsite> ToolAssignmentCsites { get; set; } = new List<ToolAssignmentCsite>();
 
     public virtual ICollection<VehicleAssignmentCSite> VehicleAssignmentCSites { get; set; } = new List<VehicleAssignmentCSite>();

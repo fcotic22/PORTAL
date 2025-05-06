@@ -9,17 +9,9 @@ public partial class Image
 {
     public int id { get; set; }
 
-    public int issue_id { get; set; }
-
-    public string name { get; set; }
-
-    public string imagePath { get; set; }
+    public string caption { get; set; }
 
     public string imageType { get; set; }
 
-    public DateTime? uploadDate { get; set; }
-
     public byte[] imageData { get; set; }
-
-    public virtual Issue issue { get; set; }
 }
