@@ -55,6 +55,8 @@ public partial class PORTAL_DBContext : DbContext
 
     public virtual DbSet<Issue> Issues { get; set; }
 
+    public virtual DbSet<IssueImage> IssueImages { get; set; }
+
     public virtual DbSet<Note> Notes { get; set; }
 
     public virtual DbSet<Notification> Notifications { get; set; }
@@ -93,7 +95,7 @@ public partial class PORTAL_DBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=portalgrupa.database.windows.net;Initial Catalog=PORTAL_DB;Persist Security Info=True;User ID=portal_admin;Password=eutUu3i94XD!P$G");
+        => optionsBuilder.UseSqlServer("Data Source=portalgrupa.database.windows.net;Initial Catalog=PORTAL_DB;Persist Security Info=True;User ID=portal_admin;Password=eutUu3i94XD!P$G;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -631,6 +633,35 @@ public partial class PORTAL_DBContext : DbContext
                 .HasConstraintName("FKIssue667537");
         });
 
+        modelBuilder.Entity<IssueImage>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("PK__Image__3213E83FA1599E61");
+
+            entity.ToTable("IssueImage");
+
+            entity.Property(e => e.imageData)
+                .IsRequired()
+                .HasColumnType("image");
+            entity.Property(e => e.imagePath)
+                .IsRequired()
+                .HasMaxLength(1000)
+                .IsUnicode(false);
+            entity.Property(e => e.imageType)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.name)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.uploadDate).HasColumnType("date");
+
+            entity.HasOne(d => d.issue).WithMany(p => p.IssueImages)
+                .HasForeignKey(d => d.issue_id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKImage429720");
+        });
+
         modelBuilder.Entity<Note>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK__Note__3213E83F20B51317");
@@ -1050,6 +1081,9 @@ public partial class PORTAL_DBContext : DbContext
 
             entity.ToTable("Vehicle");
 
+            entity.Property(e => e.assignedTo)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.fuelType)
                 .HasMaxLength(255)
                 .IsUnicode(false);

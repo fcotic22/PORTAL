@@ -9,9 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ikonaApp.png" />
-    <None Remove="portal-grupa-logo.ico" />
-    <None Remove="portal-grupa-logo.png" />
+    <None Remove="Resources\ikonaApp.png" />
+    <None Remove="Resources\portal-grupa-logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,13 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UserControls\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="ikonaApp.png" />
-    <Resource Include="portal-grupa-logo.ico" />
-    <Resource Include="portal-grupa-logo.png" />
+    <Resource Include="Resources\ikonaApp.png" />
+    <Resource Include="Resources\portal-grupa-logo.png" />
   </ItemGroup>
 
   <ItemGroup>

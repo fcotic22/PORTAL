@@ -1,4 +1,6 @@
 ﻿using Bussiness_Logic_Layer;
+using Presentation_Layer;
+using Presentation_Layer.UserControls;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +22,12 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            GUIManager.MainWindow = this;
+        }
+
+        private void btnVehicles_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new VehiclesUC());
         }
     }
 }

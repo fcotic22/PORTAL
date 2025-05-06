@@ -27,5 +27,7 @@ public partial class Vehicle
 
     public int isCurrentlyAssigned { get; set; }
 
+    public string assignedTo { get; set; }
+
     public virtual ICollection<VehicleAssignmentCSite> VehicleAssignmentCSites { get; set; } = new List<VehicleAssignmentCSite>();
 }

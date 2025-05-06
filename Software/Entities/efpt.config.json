@@ -91,6 +91,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[IssueImage]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Note]",
          "ObjectType": 0
       },
