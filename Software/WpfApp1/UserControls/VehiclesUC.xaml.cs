@@ -1,21 +1,11 @@
-﻿using Bussiness_Logic_Layer;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bussiness_Logic_Layer.Services;
+using Entities;
+using Entities.Models;
+using Microsoft.IdentityModel.Tokens;
+using Notifications.Wpf.Core;
+using Notifications.Wpf.Core.Controls;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Color = System.Windows.Media.Color;
 
 namespace Presentation_Layer.UserControls
 {
@@ -25,6 +15,9 @@ namespace Presentation_Layer.UserControls
     public partial class VehiclesUC : UserControl
     {
         private VehicleService vehicleService;
+        private EmployeeService employeeService;
+        private NotificationManager notificationManager;
+        private NotificationService notificationService; 
         public VehiclesUC()
         {
             InitializeComponent();
@@ -33,21 +26,285 @@ namespace Presentation_Layer.UserControls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             vehicleService = new VehicleService();
-            dgVehicles.ItemsSource = vehicleService.GetAllVehicles();
+            employeeService = new EmployeeService();
+            notificationManager = new NotificationManager();
+            notificationService = new NotificationService();
+
+            var allVehicles = vehicleService.GetAllVehicles();
+            dgVehicles.ItemsSource = allVehicles;
+            CheckRegistrationExpiry(allVehicles);
             
+            dgVehicles.RowHeight = 30;
+            dgVehicles.ColumnWidth = 150;
+
             dgVehicles.Columns[0].Visibility = Visibility.Hidden;
             dgVehicles.Columns[11].Visibility = Visibility.Hidden;
-            dgVehicles.Columns[0].Header = "Naziv vozila";
-            dgVehicles.Columns[1].Header = "Model";
-            dgVehicles.Columns[2].Header = "Registarska oznaka";
-            dgVehicles.Columns[3].Header = "Registracija vrijedi do";
-            dgVehicles.Columns[4].Header = "Proizvođač";
-            dgVehicles.Columns[5].Header = "Tip goriva";
-            dgVehicles.Columns[6].Header = "Broj sjedišta";
-            dgVehicles.Columns[7].Header = "Broj sjedala";
+            dgVehicles.Columns[1].Header = "Naziv vozila";
+            dgVehicles.Columns[2].Header = "Model";
+            dgVehicles.Columns[3].Header = "Registarska oznaka";
+            dgVehicles.Columns[4].Header = "Registracija vrijedi do";
+            dgVehicles.Columns[5].Header = "Proizvođač";
+            dgVehicles.Columns[6].Header = "Tip goriva";
+            dgVehicles.Columns[7].Header = "Broj sjedišta";
             dgVehicles.Columns[8].Header = "Godina proizvodnje";
             dgVehicles.Columns[9].Header = "Trenutno dodjeljen";
             dgVehicles.Columns[10].Header = "Dodjeljen osobi ";
+        }
+
+        private void btnRemoveVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            txtWarning.Text = string.Empty;
+
+            var selectedVehicle = dgVehicles.SelectedItem as Vehicle;
+            if (selectedVehicle != null)
+            {
+                var result = MessageBox.Show("Da li ste sigurni da želite obrisati odabrano vozilo?", "Potvrda brisanja", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    vehicleService.RemoveVehicle(selectedVehicle);
+                    DisplayNotification("Uspješno izbrisano vozilo");
+                    UserControl_Loaded(sender, e);
+                }
+            }
+            else
+            {
+                txtWarning.Text = "Molimo odaberite vozilo";
+            }
+        }
+
+        private void btnAddVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            txtWarning.Text = string.Empty;
+            formForAddingAndEditing.Visibility = Visibility.Visible;
+            txtHeader.Text = "Dodavanje vozila";
+            btnAdd.Visibility = Visibility.Visible;
+            btnEdit.Visibility = Visibility.Hidden;
+            cmbEmployee.ItemsSource = employeeService.GetAllEmployeeNames();
+        }
+
+        private void btnEditVehicle_Click(object sender, RoutedEventArgs e)
+        {
+            txtWarning.Text = string.Empty;
+            
+            var selectedVehicle = dgVehicles.SelectedItem as Vehicle;
+            if (selectedVehicle != null)
+            {
+                formForAddingAndEditing.Visibility = Visibility.Visible;
+                txtHeader.Text = "Uređivanje vozila";
+                btnEdit.Visibility = Visibility.Visible;
+                btnAdd.Visibility = Visibility.Hidden;
+
+                cmbEmployee.ItemsSource = employeeService.GetAllEmployeeNames();
+                txtName.Text = selectedVehicle.name;
+                txtModel.Text = selectedVehicle.model;
+                txtRegistration.Text = selectedVehicle.licensePlate;
+                dtpRegistrationValidTo.Text = selectedVehicle.registrationValidTo.ToString();
+                txtNoOfSeats.Text = selectedVehicle.noOfSeats.ToString();
+                txtManufacturer.Text = selectedVehicle.manufacturer;
+                cmbFuelType.Text = selectedVehicle.fuelType;
+                txtProductionYear.Text = selectedVehicle.productionYear.ToString();
+            }
+            else
+            {
+                txtWarning.Text = "Molimo odaberite vozilo";
+            }
+        }
+
+        private void btnAction_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateForm() == false) return;
+           
+            var isAssigned = 0;
+            string assignedTo = null;
+
+            if (cmbEmployee.SelectedIndex != -1)
+            {
+                isAssigned = 1;
+                assignedTo = cmbEmployee.Text;
+                cmbEmployee.Width = 320;
+                btnRemoveAssignment.Visibility = Visibility.Visible;
+            }
+
+            var vehicle = dgVehicles.SelectedItem as Vehicle;
+            Vehicle newVehicle = new Vehicle()
+            {
+                id = vehicle.id,
+                name = txtName.Text,
+                model = txtModel.Text,
+                licensePlate = txtRegistration.Text,
+                registrationValidTo = dtpRegistrationValidTo.SelectedDate.HasValue
+                ? dtpRegistrationValidTo.SelectedDate.Value
+                : DateTime.MinValue,
+                noOfSeats = int.Parse(txtNoOfSeats.Text.ToString()),
+                manufacturer = txtManufacturer.Text,
+                fuelType = cmbFuelType.Text,
+                productionYear = int.Parse(txtProductionYear.Text),
+                isCurrentlyAssigned = isAssigned,
+                assignedTo = assignedTo
+            };
+            vehicleService.UpdateVehicle(newVehicle);
+            ClearAndCloseForm();
+            DisplayNotification("Uspješno dodana izmjena vozila");
+            UserControl_Loaded(sender, e);
+        }
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if(ValidateForm() == false) return;
+            txtHeader.Text = "Dodavanje vozila";
+
+            cmbEmployee.ItemsSource = employeeService.GetAllEmployeeNames();
+            var isAssigned = 0;
+            string assignedTo = null;
+
+            if (cmbEmployee.SelectedIndex != -1)
+            {
+                isAssigned = 1;
+                assignedTo = cmbEmployee.Text;
+                cmbEmployee.Width = 320;
+                btnRemoveAssignment.Visibility = Visibility.Visible;
+            }
+
+            Vehicle newVehicle = new Vehicle()
+            {
+                name = txtName.Text,
+                model = txtModel.Text,
+                licensePlate = txtRegistration.Text,
+                registrationValidTo = dtpRegistrationValidTo.SelectedDate.HasValue
+                ? dtpRegistrationValidTo.SelectedDate.Value
+                : DateTime.MinValue,
+                noOfSeats = int.Parse(txtNoOfSeats.Text.ToString()),
+                manufacturer = txtManufacturer.Text,
+                fuelType = cmbFuelType.Text,
+                productionYear = int.Parse(txtProductionYear.Text),
+                isCurrentlyAssigned = isAssigned,
+                assignedTo = assignedTo
+            };
+            vehicleService.AddNewVehicle(newVehicle);
+            ClearAndCloseForm();
+            DisplayNotification("Uspješno dodano novo vozilo");
+            UserControl_Loaded(sender, e);
+        }
+
+        private void formForAddingAndEditing_Loaded(object sender, RoutedEventArgs e)
+        {
+            cmbFuelType.ItemsSource = new List<string>
+            {
+                "Benzin",
+                "Diesel",
+                "Hibrid",
+                "Električni"
+            };
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ClearAndCloseForm();
+        }
+
+        private void ClearAndCloseForm()
+        {
+            txtName.Text = string.Empty;
+            txtModel.Text = string.Empty;
+            txtRegistration.Text = string.Empty;
+            dtpRegistrationValidTo.Text = string.Empty;
+            txtNoOfSeats.Text = string.Empty;
+            txtManufacturer.Text = string.Empty;
+            cmbFuelType.Text = string.Empty;
+            txtProductionYear.Text = string.Empty;
+            formForAddingAndEditing.Visibility = Visibility.Hidden;
+        }
+
+        private void DisplayNotification(string notification)
+        {
+            if (notification != string.Empty)
+            {
+                var notificationContent = new NotificationContent
+                {
+                    Title = "Vozila",
+                    Message = notification,
+                    Type = NotificationType.Success
+                };
+                notificationManager.ShowAsync(notificationContent);
+            }
+        }
+
+        private bool ValidateForm()
+        {
+            txtMessage.Text = string.Empty;
+            if (txtName.Text.IsNullOrEmpty() || txtModel.Text.IsNullOrEmpty() || txtRegistration.Text.IsNullOrEmpty() || dtpRegistrationValidTo.Text.IsNullOrEmpty() || txtNoOfSeats.Text.IsNullOrEmpty() || txtManufacturer.Text.IsNullOrEmpty() || cmbFuelType.Text.IsNullOrEmpty() || txtProductionYear.Text.IsNullOrEmpty())
+            {
+                txtMessage.Text = "Molimo popunite sva polja";
+                return false;
+            }
+            else if (!int.TryParse(txtNoOfSeats.Text, out _))
+            {
+                txtMessage.Text = "Broj sjedišta mora biti broj";
+                return false;
+            }
+            else if (!int.TryParse(txtProductionYear.Text, out _))
+            {
+                txtMessage.Text = "Godina proizvodnje mora biti broj";
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void btnRemoveAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            cmbEmployee.SelectedIndex = -1;
+            cmbEmployee.Width = 350;
+            btnRemoveAssignment.IsEnabled = false;
+            btnRemoveAssignment.Visibility = Visibility.Hidden;
+        }
+
+        private void cmbEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cmbEmployee.Width = 320;
+            btnRemoveAssignment.Visibility = Visibility.Visible;
+        }
+
+        private void CheckRegistrationExpiry(List<Vehicle> vehicles)
+        {
+            foreach (Vehicle vehicle in vehicles) 
+            {
+                var daysUntilExpiry = (vehicle.registrationValidTo - DateTime.Now).TotalDays;
+                if (daysUntilExpiry < 0)
+                {   
+                    var notificationContent = new NotificationContent
+                    {
+                        Title = "Vozila",
+                        Message = $"Registracija vozila {vehicle.name} je istekla",
+                        Type = NotificationType.Error,
+                    };
+
+                    if (notificationService.ContainsNotificationWithTitle($"Istek registracije vozila {vehicle.name}") == false)
+                    {
+                        var systemNotification = new Entities.Models.Notification
+                        {
+                            title = $"Istek registracije vozila {vehicle.name}",
+                            message = $"Vozilu {vehicle.name} registarske oznake {vehicle.licensePlate} je istekla registracija",
+                            priority = Enumerations.Priority.High.ToString(),
+                            status = Enumerations.Status.Open.ToString(),
+                            date = DateTime.Now,
+                        };
+                        notificationService.AddNewNotification(systemNotification);
+                    }
+                    notificationManager.ShowAsync(notificationContent);
+                }
+                else if(daysUntilExpiry < 15)
+                {
+                    var notificationContent = new NotificationContent
+                    {
+                        Title = "Vozila",
+                        Message = $"Registracija vozila {vehicle.name} ističe za {((int)daysUntilExpiry)} dana",
+                        Type = NotificationType.Warning,
+                    };
+                    notificationManager.ShowAsync(notificationContent);
+                }
+            }
         }
     }
 }

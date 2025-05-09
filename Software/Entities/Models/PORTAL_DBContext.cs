@@ -693,10 +693,6 @@ public partial class PORTAL_DBContext : DbContext
             entity.ToTable("Notification");
 
             entity.Property(e => e.date).HasColumnType("date");
-            entity.Property(e => e.description)
-                .IsRequired()
-                .HasMaxLength(300)
-                .IsUnicode(false);
             entity.Property(e => e.dueDate).HasColumnType("date");
             entity.Property(e => e.message)
                 .HasMaxLength(500)
@@ -706,13 +702,19 @@ public partial class PORTAL_DBContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.projectType)
-                .IsRequired()
                 .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.status)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.title)
+                .IsRequired()
+                .HasMaxLength(300)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.project).WithMany(p => p.Notifications)
                 .HasForeignKey(d => d.project_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKNotificati929200");
         });
 

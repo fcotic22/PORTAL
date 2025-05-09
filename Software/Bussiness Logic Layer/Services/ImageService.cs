@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bussiness_Logic_Layer
+namespace Bussiness_Logic_Layer.Services
 {
     public class ImageService
     {

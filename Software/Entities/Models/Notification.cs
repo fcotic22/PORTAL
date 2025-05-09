@@ -9,11 +9,11 @@ public partial class Notification
 {
     public int id { get; set; }
 
-    public int project_id { get; set; }
+    public int? project_id { get; set; }
 
     public string projectType { get; set; }
 
-    public string description { get; set; }
+    public string title { get; set; }
 
     public string message { get; set; }
 
@@ -22,6 +22,8 @@ public partial class Notification
     public DateTime date { get; set; }
 
     public DateTime? dueDate { get; set; }
+
+    public string status { get; set; }
 
     public virtual Project project { get; set; }
 }

@@ -14,5 +14,11 @@ namespace Data_Access_Layer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<Notification> GetNotificationByTitle(string title)
+        {
+            var query = from notification in Entities where notification.title == title select notification;
+            return query;
+        }
     }
 }

@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
             <StackPanel Grid.Column="0" Width="200" Background="LightSeaGreen">
-                <TextBlock Height="20">Funkcije</TextBlock>
+                <TextBlock Height="25">Funkcije</TextBlock>
                 <Button x:Name="btnProjects">Projekti</Button>
                 <Button x:Name="btnConstructionSites">Gradilišta</Button>
                 <TextBlock>Sredstva</TextBlock>
@@ -24,10 +24,9 @@
                 <Button x:Name="btnEmployees">Zaposlenici</Button>
                 <Button x:Name="btnBuyers">Kupci</Button>
                 <Button x:Name="btnSuppliers">Dobavljači</Button>
-                
+
             </StackPanel>
-            <StackPanel Grid.Column="1" Height="20" Orientation="Vertical" DockPanel.Dock="Top" Background="LightSeaGreen"></StackPanel>
-            <ContentControl Margin="10,10,10,10" Grid.Column="1" x:Name="contentPanel"></ContentControl>
+            <ContentControl Grid.Column="1" x:Name="contentPanel"></ContentControl>
             
         </DockPanel>
 
