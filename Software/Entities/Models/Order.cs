@@ -9,9 +9,11 @@ public partial class Order
 {
     public int id { get; set; }
 
-    public int supplier_id { get; set; }
+    public int subproject_id { get; set; }
 
-    public int project_id { get; set; }
+    public int? otherSupplier_id { get; set; }
+
+    public int? profileSupplier_id { get; set; }
 
     public int user_id { get; set; }
 
@@ -25,9 +27,11 @@ public partial class Order
 
     public DateTime? expectedDateOfOrder { get; set; }
 
-    public virtual Project project { get; set; }
+    public virtual OtherSupplier otherSupplier { get; set; }
 
-    public virtual OtherSupplier supplier { get; set; }
+    public virtual ProfileSupplier profileSupplier { get; set; }
+
+    public virtual Subproject subproject { get; set; }
 
     public virtual User user { get; set; }
 }

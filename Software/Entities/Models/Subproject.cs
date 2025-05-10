@@ -5,15 +5,13 @@ using System.Collections.Generic;
 
 namespace Entities.Models;
 
-public partial class PVCProject
+public partial class Subproject
 {
-    public int pvc_project_id { get; set; }
+    public int id { get; set; }
 
     public int project_id { get; set; }
 
-    public int glassProject_id { get; set; }
-
-    public int profileSupplier_id { get; set; }
+    public string projectType { get; set; }
 
     public string name { get; set; }
 
@@ -25,9 +23,13 @@ public partial class PVCProject
 
     public string status { get; set; }
 
-    public virtual GlassForProject glassProject { get; set; }
+    public virtual ICollection<GlassForSubproject> GlassForSubprojects { get; set; } = new List<GlassForSubproject>();
 
-    public virtual ProfileSupplier profileSupplier { get; set; }
+    public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+
+    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
 
     public virtual Project project { get; set; }
 }

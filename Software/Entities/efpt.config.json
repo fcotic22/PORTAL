@@ -15,10 +15,6 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[ALUProject]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Buyer]",
          "ObjectType": 0
       },
@@ -43,19 +39,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[DoorProject]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Employee]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[EmployeeAssignmentCSite]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[FacadeProject]",
          "ObjectType": 0
       },
       {
@@ -67,7 +55,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[GlassForProject]",
+         "Name": "[dbo].[GlassForSubproject]",
          "ObjectType": 0
       },
       {
@@ -131,15 +119,15 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[PVCProject]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Spacer]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[Step]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Subproject]",
          "ObjectType": 0
       },
       {

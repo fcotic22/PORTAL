@@ -23,27 +23,15 @@ public partial class Project
 
     public string priority { get; set; }
 
-    public virtual ICollection<ALUProject> ALUProjects { get; set; } = new List<ALUProject>();
-
     public virtual ICollection<ConstructionSite> ConstructionSites { get; set; } = new List<ConstructionSite>();
 
-    public virtual ICollection<DoorProject> DoorProjects { get; set; } = new List<DoorProject>();
-
-    public virtual ICollection<FacadeProject> FacadeProjects { get; set; } = new List<FacadeProject>();
-
     public virtual ICollection<File> Files { get; set; } = new List<File>();
-
-    public virtual ICollection<Issue> Issues { get; set; } = new List<Issue>();
 
     public virtual ICollection<Note> Notes { get; set; } = new List<Note>();
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
-
-    public virtual ICollection<PVCProject> PVCProjects { get; set; } = new List<PVCProject>();
-
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    public virtual ICollection<Subproject> Subprojects { get; set; } = new List<Subproject>();
 
     public virtual Buyer buyer { get; set; }
 }

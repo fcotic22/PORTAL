@@ -9,9 +9,7 @@ public partial class Issue
 {
     public int id { get; set; }
 
-    public int project_id { get; set; }
-
-    public string projectType { get; set; }
+    public int subproject_id { get; set; }
 
     public string name { get; set; }
 
@@ -29,5 +27,5 @@ public partial class Issue
 
     public virtual ICollection<IssueImage> IssueImages { get; set; } = new List<IssueImage>();
 
-    public virtual Project project { get; set; }
+    public virtual Subproject subproject { get; set; }
 }

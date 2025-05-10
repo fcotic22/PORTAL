@@ -29,5 +29,40 @@ namespace WpfApp1
         {
             GUIManager.Open(new VehiclesUC());
         }
+
+        private void btnProjects_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ProjectsUC());
+        }
+
+        private void btnConstructionSites_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ConstructionSitesUC());
+        }
+
+        private void btnTools_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ToolsUC());
+        }
+
+        private void btnResources_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ResourcesUC());
+        }
+
+        private void btnEmployees_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new EmployeesUC());
+        }
+
+        private void btnBuyers_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new BuyersUC());
+        }
+
+        private void btnSuppliers_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new SuppliersUC());
+        }
     }
 }

@@ -13,17 +13,17 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
             <StackPanel Grid.Column="0" Width="200" Background="LightSeaGreen">
-                <TextBlock Height="25">Funkcije</TextBlock>
-                <Button x:Name="btnProjects">Projekti</Button>
-                <Button x:Name="btnConstructionSites">Gradilišta</Button>
+                <TextBlock Height="35">Funkcije</TextBlock>
+                <Button x:Name="btnProjects" Click="btnProjects_Click">Projekti</Button>
+                <Button x:Name="btnConstructionSites" Click="btnConstructionSites_Click">Gradilišta</Button>
                 <TextBlock>Sredstva</TextBlock>
-                <Button x:Name="btnTools">Alat</Button>
+                <Button x:Name="btnTools" Click="btnTools_Click">Alat</Button>
                 <Button x:Name="btnVehicles" Click="btnVehicles_Click">Vozila</Button>
-                <Button x:Name="btnResources">Resursi</Button>
+                <Button x:Name="btnResources" Click="btnResources_Click">Resursi</Button>
                 <TextBlock>Administracija</TextBlock>
-                <Button x:Name="btnEmployees">Zaposlenici</Button>
-                <Button x:Name="btnBuyers">Kupci</Button>
-                <Button x:Name="btnSuppliers">Dobavljači</Button>
+                <Button x:Name="btnEmployees" Click="btnEmployees_Click">Zaposlenici</Button>
+                <Button x:Name="btnBuyers" Click="btnBuyers_Click">Kupci</Button>
+                <Button x:Name="btnSuppliers" Click="btnSuppliers_Click">Dobavljači</Button>
 
             </StackPanel>
             <ContentControl Grid.Column="1" x:Name="contentPanel"></ContentControl>

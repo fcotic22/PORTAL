@@ -11,7 +11,7 @@ public partial class ProfileSupplier
 
     public string name { get; set; }
 
-    public int oib { get; set; }
+    public int? oib { get; set; }
 
     public string email { get; set; }
 
@@ -27,11 +27,5 @@ public partial class ProfileSupplier
 
     public string suppliesType { get; set; }
 
-    public virtual ICollection<ALUProject> ALUProjects { get; set; } = new List<ALUProject>();
-
-    public virtual ICollection<DoorProject> DoorProjects { get; set; } = new List<DoorProject>();
-
-    public virtual ICollection<FacadeProject> FacadeProjects { get; set; } = new List<FacadeProject>();
-
-    public virtual ICollection<PVCProject> PVCProjects { get; set; } = new List<PVCProject>();
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

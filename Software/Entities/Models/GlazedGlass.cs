@@ -23,7 +23,7 @@ public partial class GlazedGlass
 
     public virtual GlassConfiguration glassConfiguration { get; set; }
 
-    public virtual GlassForProject glassProject { get; set; }
+    public virtual GlassForSubproject glassProject { get; set; }
 
     public virtual OrnamentGlass hasOrnamentGlassNavigation { get; set; }
 

@@ -9,9 +9,7 @@ public partial class Task
 {
     public int id { get; set; }
 
-    public int project_id { get; set; }
-
-    public string projectType { get; set; }
+    public int subproject_id { get; set; }
 
     public string name { get; set; }
 
@@ -29,5 +27,5 @@ public partial class Task
 
     public virtual ICollection<Step> Steps { get; set; } = new List<Step>();
 
-    public virtual Project project { get; set; }
+    public virtual Subproject subproject { get; set; }
 }

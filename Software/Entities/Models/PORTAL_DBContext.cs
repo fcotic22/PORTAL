@@ -17,8 +17,6 @@ public partial class PORTAL_DBContext : DbContext
     {
     }
 
-    public virtual DbSet<ALUProject> ALUProjects { get; set; }
-
     public virtual DbSet<Buyer> Buyers { get; set; }
 
     public virtual DbSet<CSiteImage> CSiteImages { get; set; }
@@ -31,19 +29,15 @@ public partial class PORTAL_DBContext : DbContext
 
     public virtual DbSet<ConstructionSite> ConstructionSites { get; set; }
 
-    public virtual DbSet<DoorProject> DoorProjects { get; set; }
-
     public virtual DbSet<Employee> Employees { get; set; }
 
     public virtual DbSet<EmployeeAssignmentCSite> EmployeeAssignmentCSites { get; set; }
-
-    public virtual DbSet<FacadeProject> FacadeProjects { get; set; }
 
     public virtual DbSet<File> Files { get; set; }
 
     public virtual DbSet<GlassConfiguration> GlassConfigurations { get; set; }
 
-    public virtual DbSet<GlassForProject> GlassForProjects { get; set; }
+    public virtual DbSet<GlassForSubproject> GlassForSubprojects { get; set; }
 
     public virtual DbSet<GlassPiece> GlassPieces { get; set; }
 
@@ -69,8 +63,6 @@ public partial class PORTAL_DBContext : DbContext
 
     public virtual DbSet<OtherSupplier> OtherSuppliers { get; set; }
 
-    public virtual DbSet<PVCProject> PVCProjects { get; set; }
-
     public virtual DbSet<Panel> Panels { get; set; }
 
     public virtual DbSet<ProfileSupplier> ProfileSuppliers { get; set; }
@@ -80,6 +72,8 @@ public partial class PORTAL_DBContext : DbContext
     public virtual DbSet<Spacer> Spacers { get; set; }
 
     public virtual DbSet<Step> Steps { get; set; }
+
+    public virtual DbSet<Subproject> Subprojects { get; set; }
 
     public virtual DbSet<Task> Tasks { get; set; }
 
@@ -99,47 +93,6 @@ public partial class PORTAL_DBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ALUProject>(entity =>
-        {
-            entity.HasKey(e => e.alu_project_id).HasName("PK__ALUProje__BC843CC01E59814C");
-
-            entity.ToTable("ALUProject");
-
-            entity.Property(e => e.colorOfFrame)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.colorOfWing)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.profile)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.status)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.glassProject).WithMany(p => p.ALUProjects)
-                .HasForeignKey(d => d.glassProject_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKALUProject681822");
-
-            entity.HasOne(d => d.profileSupplier).WithMany(p => p.ALUProjects)
-                .HasForeignKey(d => d.profileSupplier_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKALUProject187603");
-
-            entity.HasOne(d => d.project).WithMany(p => p.ALUProjects)
-                .HasForeignKey(d => d.project_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKALUProject321448");
-        });
-
         modelBuilder.Entity<Buyer>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK__Buyer__3213E83FED154166");
@@ -326,41 +279,6 @@ public partial class PORTAL_DBContext : DbContext
                 .HasConstraintName("FKConstructi605480");
         });
 
-        modelBuilder.Entity<DoorProject>(entity =>
-        {
-            entity.HasKey(e => e.door_project_id).HasName("PK__DoorProj__9E2BBFC5B8D0A28C");
-
-            entity.ToTable("DoorProject");
-
-            entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.profile)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.status)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.glassProject).WithMany(p => p.DoorProjects)
-                .HasForeignKey(d => d.glassProject_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKDoorProjec488186");
-
-            entity.HasOne(d => d.profileSupplier).WithMany(p => p.DoorProjects)
-                .HasForeignKey(d => d.profileSupplier_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKDoorProjec613978");
-
-            entity.HasOne(d => d.project).WithMany(p => p.DoorProjects)
-                .HasForeignKey(d => d.project_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKDoorProjec848560");
-        });
-
         modelBuilder.Entity<Employee>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PK__Employee__3213E83F3CA9CCC6");
@@ -413,41 +331,6 @@ public partial class PORTAL_DBContext : DbContext
                 .HasForeignKey(d => d.Employeeid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKEmployeeAs373115");
-        });
-
-        modelBuilder.Entity<FacadeProject>(entity =>
-        {
-            entity.HasKey(e => e.facade_project_id).HasName("PK__FacadePr__FA11050C355F236F");
-
-            entity.ToTable("FacadeProject");
-
-            entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.profile)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.status)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.glassProject).WithMany(p => p.FacadeProjects)
-                .HasForeignKey(d => d.glassProject_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKFacadeProj973236");
-
-            entity.HasOne(d => d.profileSupplier).WithMany(p => p.FacadeProjects)
-                .HasForeignKey(d => d.profileSupplier_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKFacadeProj128928");
-
-            entity.HasOne(d => d.project).WithMany(p => p.FacadeProjects)
-                .HasForeignKey(d => d.project_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKFacadeProj333611");
         });
 
         modelBuilder.Entity<File>(entity =>
@@ -507,11 +390,11 @@ public partial class PORTAL_DBContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<GlassForProject>(entity =>
+        modelBuilder.Entity<GlassForSubproject>(entity =>
         {
             entity.HasKey(e => e.glassProject_id).HasName("PK__GlassFor__C67C6A602A0379CE");
 
-            entity.ToTable("GlassForProject");
+            entity.ToTable("GlassForSubproject");
 
             entity.Property(e => e.name)
                 .IsRequired()
@@ -521,6 +404,10 @@ public partial class PORTAL_DBContext : DbContext
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.subproject).WithMany(p => p.GlassForSubprojects)
+                .HasForeignKey(d => d.subproject_id)
+                .HasConstraintName("FKGlassForSu68314");
         });
 
         modelBuilder.Entity<GlassPiece>(entity =>
@@ -599,7 +486,7 @@ public partial class PORTAL_DBContext : DbContext
 
         modelBuilder.Entity<Issue>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__Issue__3213E83F536B2E75");
+            entity.HasKey(e => e.id).HasName("PK__Issue__3213E83FEA2671ED");
 
             entity.ToTable("Issue");
 
@@ -618,24 +505,20 @@ public partial class PORTAL_DBContext : DbContext
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.projectType)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.status)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.project).WithMany(p => p.Issues)
-                .HasForeignKey(d => d.project_id)
+            entity.HasOne(d => d.subproject).WithMany(p => p.Issues)
+                .HasForeignKey(d => d.subproject_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKIssue667537");
+                .HasConstraintName("FKIssue531462");
         });
 
         modelBuilder.Entity<IssueImage>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__Image__3213E83FA1599E61");
+            entity.HasKey(e => e.id).HasName("PK__IssueIma__3213E83F6697FD56");
 
             entity.ToTable("IssueImage");
 
@@ -659,7 +542,7 @@ public partial class PORTAL_DBContext : DbContext
             entity.HasOne(d => d.issue).WithMany(p => p.IssueImages)
                 .HasForeignKey(d => d.issue_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKImage429720");
+                .HasConstraintName("FKIssueImage2806");
         });
 
         modelBuilder.Entity<Note>(entity =>
@@ -720,7 +603,7 @@ public partial class PORTAL_DBContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__Order__3213E83F025E26D2");
+            entity.HasKey(e => e.id).HasName("PK__Order__3213E83F721AFE32");
 
             entity.ToTable("Order");
 
@@ -739,15 +622,18 @@ public partial class PORTAL_DBContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.project).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.project_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKOrder171095");
+            entity.HasOne(d => d.otherSupplier).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.otherSupplier_id)
+                .HasConstraintName("FKOrder110465");
 
-            entity.HasOne(d => d.supplier).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.supplier_id)
+            entity.HasOne(d => d.profileSupplier).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.profileSupplier_id)
+                .HasConstraintName("FKOrder633634");
+
+            entity.HasOne(d => d.subproject).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.subproject_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKOrder717847");
+                .HasConstraintName("FKOrder35020");
 
             entity.HasOne(d => d.user).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.user_id)
@@ -816,47 +702,6 @@ public partial class PORTAL_DBContext : DbContext
                 .IsRequired()
                 .HasMaxLength(500)
                 .IsUnicode(false);
-        });
-
-        modelBuilder.Entity<PVCProject>(entity =>
-        {
-            entity.HasKey(e => e.pvc_project_id).HasName("PK__PVCProje__DF07B7DF57DC2186");
-
-            entity.ToTable("PVCProject");
-
-            entity.Property(e => e.colorOfFrame)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.colorOfWing)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.profile)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.status)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.glassProject).WithMany(p => p.PVCProjects)
-                .HasForeignKey(d => d.glassProject_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKPVCProject908358");
-
-            entity.HasOne(d => d.profileSupplier).WithMany(p => p.PVCProjects)
-                .HasForeignKey(d => d.profileSupplier_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKPVCProject961066");
-
-            entity.HasOne(d => d.project).WithMany(p => p.PVCProjects)
-                .HasForeignKey(d => d.project_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKPVCProject547984");
         });
 
         modelBuilder.Entity<Panel>(entity =>
@@ -948,7 +793,7 @@ public partial class PORTAL_DBContext : DbContext
 
         modelBuilder.Entity<Step>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__Step__3213E83F42DB9B93");
+            entity.HasKey(e => e.id).HasName("PK__Step__3213E83F5EAC9A5F");
 
             entity.ToTable("Step");
 
@@ -971,9 +816,43 @@ public partial class PORTAL_DBContext : DbContext
                 .HasConstraintName("FKStep52027");
         });
 
+        modelBuilder.Entity<Subproject>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("PK__Subproje__3213E83FDA92FDB4");
+
+            entity.ToTable("Subproject");
+
+            entity.Property(e => e.colorOfFrame)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.colorOfWing)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.name)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.profile)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.projectType)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.status)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.project).WithMany(p => p.Subprojects)
+                .HasForeignKey(d => d.project_id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FKSubproject742414");
+        });
+
         modelBuilder.Entity<Task>(entity =>
         {
-            entity.HasKey(e => e.id).HasName("PK__Task__3213E83F71BCED70");
+            entity.HasKey(e => e.id).HasName("PK__Task__3213E83FEA6850AB");
 
             entity.ToTable("Task");
 
@@ -992,19 +871,15 @@ public partial class PORTAL_DBContext : DbContext
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.projectType)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.status)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.project).WithMany(p => p.Tasks)
-                .HasForeignKey(d => d.project_id)
+            entity.HasOne(d => d.subproject).WithMany(p => p.Tasks)
+                .HasForeignKey(d => d.subproject_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FKTask25514");
+                .HasConstraintName("FKTask889438");
         });
 
         modelBuilder.Entity<Tool>(entity =>
