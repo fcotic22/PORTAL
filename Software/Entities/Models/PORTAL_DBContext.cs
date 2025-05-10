@@ -51,6 +51,8 @@ public partial class PORTAL_DBContext : DbContext
 
     public virtual DbSet<IssueImage> IssueImages { get; set; }
 
+    public virtual DbSet<Leave> Leaves { get; set; }
+
     public virtual DbSet<Note> Notes { get; set; }
 
     public virtual DbSet<Notification> Notifications { get; set; }
@@ -307,6 +309,10 @@ public partial class PORTAL_DBContext : DbContext
             entity.Property(e => e.phone)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.status)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.surname)
                 .IsRequired()
                 .HasMaxLength(255)
@@ -543,6 +549,17 @@ public partial class PORTAL_DBContext : DbContext
                 .HasForeignKey(d => d.issue_id)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FKIssueImage2806");
+        });
+
+        modelBuilder.Entity<Leave>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("PK__Leave_Ne__3213E83F71ECF2E4");
+
+            entity.ToTable("Leave");
+
+            entity.Property(e => e.endDate).HasColumnType("datetime");
+            entity.Property(e => e.reasonForLeave).IsRequired();
+            entity.Property(e => e.startDate).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<Note>(entity =>

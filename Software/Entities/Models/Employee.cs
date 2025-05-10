@@ -31,6 +31,10 @@ public partial class Employee
 
     public int? hourlyPay { get; set; }
 
+    public string status { get; set; }
+
+    public int isOnLeave { get; set; }
+
     public virtual ICollection<ConstructionSite> ConstructionSites { get; set; } = new List<ConstructionSite>();
 
     public virtual ICollection<EmployeeAssignmentCSite> EmployeeAssignmentCSites { get; set; } = new List<EmployeeAssignmentCSite>();

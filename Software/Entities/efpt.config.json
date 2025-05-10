@@ -83,6 +83,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Leave]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Note]",
          "ObjectType": 0
       },

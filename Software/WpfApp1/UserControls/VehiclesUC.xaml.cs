@@ -17,18 +17,20 @@ namespace Presentation_Layer.UserControls
         private VehicleService vehicleService;
         private EmployeeService employeeService;
         private NotificationManager notificationManager;
-        private NotificationService notificationService; 
+        private NotificationService notificationService;
+        private UCHelper UCHelper;
         public VehiclesUC()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
             vehicleService = new VehicleService();
             employeeService = new EmployeeService();
             notificationManager = new NotificationManager();
             notificationService = new NotificationService();
+            UCHelper = new UCHelper();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
 
             var allVehicles = vehicleService.GetAllVehicles();
             dgVehicles.ItemsSource = allVehicles;
@@ -53,8 +55,6 @@ namespace Presentation_Layer.UserControls
 
         private void btnRemoveVehicle_Click(object sender, RoutedEventArgs e)
         {
-            txtWarning.Text = string.Empty;
-
             var selectedVehicle = dgVehicles.SelectedItem as Vehicle;
             if (selectedVehicle != null)
             {
@@ -62,19 +62,18 @@ namespace Presentation_Layer.UserControls
                 if (result == MessageBoxResult.Yes)
                 {
                     vehicleService.RemoveVehicle(selectedVehicle);
-                    DisplayNotification("Uspješno izbrisano vozilo");
+                    UCHelper.DisplayNotification("VOZILA", "Uspješno izbrisano vozilo", NotificationType.Success);
                     UserControl_Loaded(sender, e);
                 }
             }
             else
             {
-                txtWarning.Text = "Molimo odaberite vozilo";
+                UCHelper.DisplayNotification("VOZILA","Molimo odaberite vozilo", NotificationType.Warning);
             }
         }
 
         private void btnAddVehicle_Click(object sender, RoutedEventArgs e)
         {
-            txtWarning.Text = string.Empty;
             formForAddingAndEditing.Visibility = Visibility.Visible;
             txtHeader.Text = "Dodavanje vozila";
             btnAdd.Visibility = Visibility.Visible;
@@ -84,8 +83,6 @@ namespace Presentation_Layer.UserControls
 
         private void btnEditVehicle_Click(object sender, RoutedEventArgs e)
         {
-            txtWarning.Text = string.Empty;
-            
             var selectedVehicle = dgVehicles.SelectedItem as Vehicle;
             if (selectedVehicle != null)
             {
@@ -106,7 +103,7 @@ namespace Presentation_Layer.UserControls
             }
             else
             {
-                txtWarning.Text = "Molimo odaberite vozilo";
+                UCHelper.DisplayNotification("VOZILA", "Molimo odaberite vozilo", NotificationType.Warning);
             }
         }
 
@@ -144,7 +141,7 @@ namespace Presentation_Layer.UserControls
             };
             vehicleService.UpdateVehicle(newVehicle);
             ClearAndCloseForm();
-            DisplayNotification("Uspješno dodana izmjena vozila");
+            UCHelper.DisplayNotification("VOZILA", "Uspješno dodana izmjena vozila", NotificationType.Success);
             UserControl_Loaded(sender, e);
         }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -181,7 +178,7 @@ namespace Presentation_Layer.UserControls
             };
             vehicleService.AddNewVehicle(newVehicle);
             ClearAndCloseForm();
-            DisplayNotification("Uspješno dodano novo vozilo");
+            UCHelper.DisplayNotification("VOZILA", "Uspješno dodano novo vozilo", NotificationType.Success);
             UserControl_Loaded(sender, e);
         }
 
@@ -212,20 +209,6 @@ namespace Presentation_Layer.UserControls
             cmbFuelType.Text = string.Empty;
             txtProductionYear.Text = string.Empty;
             formForAddingAndEditing.Visibility = Visibility.Hidden;
-        }
-
-        private void DisplayNotification(string notification)
-        {
-            if (notification != string.Empty)
-            {
-                var notificationContent = new NotificationContent
-                {
-                    Title = "Vozila",
-                    Message = notification,
-                    Type = NotificationType.Success
-                };
-                notificationManager.ShowAsync(notificationContent);
-            }
         }
 
         private bool ValidateForm()
@@ -273,12 +256,7 @@ namespace Presentation_Layer.UserControls
                 var daysUntilExpiry = (vehicle.registrationValidTo - DateTime.Now).TotalDays;
                 if (daysUntilExpiry < 0)
                 {   
-                    var notificationContent = new NotificationContent
-                    {
-                        Title = "Vozila",
-                        Message = $"Registracija vozila {vehicle.name} je istekla",
-                        Type = NotificationType.Error,
-                    };
+                    UCHelper.DisplayNotification("VOZILA", $"Registracija vozila {vehicle.name} je istekla", NotificationType.Error);
 
                     if (notificationService.ContainsNotificationWithTitle($"Istek registracije vozila {vehicle.name}") == false)
                     {
@@ -292,17 +270,10 @@ namespace Presentation_Layer.UserControls
                         };
                         notificationService.AddNewNotification(systemNotification);
                     }
-                    notificationManager.ShowAsync(notificationContent);
                 }
                 else if(daysUntilExpiry < 15)
                 {
-                    var notificationContent = new NotificationContent
-                    {
-                        Title = "Vozila",
-                        Message = $"Registracija vozila {vehicle.name} ističe za {((int)daysUntilExpiry)} dana",
-                        Type = NotificationType.Warning,
-                    };
-                    notificationManager.ShowAsync(notificationContent);
+                    UCHelper.DisplayNotification("VOZILA", $"Registracija vozila {vehicle.name} ističe za {((int)daysUntilExpiry)} dana", NotificationType.Warning);
                 }
             }
         }
