@@ -1,4 +1,5 @@
-﻿using Notifications.Wpf.Core;
+﻿using Entities.Models;
+using Notifications.Wpf.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace Presentation_Layer.UserControls
             };
             notificationManager.ShowAsync(notificationContent);   
         }
+
 
     }
 }

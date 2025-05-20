@@ -852,10 +852,6 @@ public partial class PORTAL_DBContext : DbContext
             entity.Property(e => e.profile)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.projectType)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.status)
                 .IsRequired()
                 .HasMaxLength(255)

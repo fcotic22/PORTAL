@@ -1,4 +1,5 @@
 ﻿using Bussiness_Logic_Layer;
+using Entities.Models;
 using Presentation_Layer;
 using Presentation_Layer.UserControls;
 using System.Text;
@@ -63,6 +64,11 @@ namespace WpfApp1
         private void btnSuppliers_Click(object sender, RoutedEventArgs e)
         {
             GUIManager.Open(new SuppliersUC());
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new SelectedProjectUC(new Project()));
         }
     }
 }

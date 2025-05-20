@@ -17,5 +17,10 @@ namespace Entities
         {
             Open, InProgress, Closed, 
         }
+
+        public enum ProjectType
+        {
+            PVC, ALU, FACADE 
+        }
     }
 }

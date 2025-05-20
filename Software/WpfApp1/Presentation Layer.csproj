@@ -9,12 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\aluSample.jpeg" />
+    <None Remove="Resources\facadeSample.png" />
+    <None Remove="Resources\glassSample.png" />
     <None Remove="Resources\ikonaApp.png" />
     <None Remove="Resources\portal-grupa-logo.png" />
+    <None Remove="Resources\pvcSample.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AdaptiveCards" Version="3.1.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
     <PackageReference Include="Notifications.Wpf.Core" Version="2.0.1" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="29.2.4" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.2.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,8 +31,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Syncfusion.Shared.WPF">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\syncfusion.shared.wpf\29.2.4\lib\net9.0-windows7.0\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\aluSample.jpeg" />
+    <Resource Include="Resources\facadeSample.png" />
+    <Resource Include="Resources\glassSample.png" />
     <Resource Include="Resources\ikonaApp.png" />
     <Resource Include="Resources\portal-grupa-logo.png" />
+    <Resource Include="Resources\pvcSample.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Bussiness_Logic_Layer.Services;
+using Entities;
+using Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,13 @@ namespace Presentation_Layer.UserControls
     /// </summary>
     public partial class ALUProjectUC : UserControl
     {
-        public ALUProjectUC()
+        private Project project;
+        private Subproject aluSubproject;
+        public ALUProjectUC(int project_id)
         {
             InitializeComponent();
+            project = ProjectService.GetProjectById(project_id);
+            aluSubproject = SubprojectService.GetSubrojectByProjectIdAndSubprojectType(project_id, ((int)Enumerations.ProjectType.ALU));
         }
     }
 }

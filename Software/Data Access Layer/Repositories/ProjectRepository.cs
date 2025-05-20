@@ -15,5 +15,13 @@ namespace Data_Access_Layer.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public IQueryable<Project> GetProjectById(int id)
+        {
+            var query = from project in Entities
+                        where project.id == id
+                        select project;
+            return query;
+        }
     }
 }

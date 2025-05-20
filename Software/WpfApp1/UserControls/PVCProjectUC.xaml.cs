@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Bussiness_Logic_Layer.Services;
+using Data_Access_Layer.Repositories;
+using Entities;
+using Entities.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +25,13 @@ namespace Presentation_Layer.UserControls
     /// </summary>
     public partial class PVCProjectUC : UserControl
     {
-        public PVCProjectUC()
+        private Project project;
+        private Subproject pvcSubproject;
+        public PVCProjectUC(int project_id)
         {
             InitializeComponent();
+            project = ProjectService.GetProjectById(project_id);
+            pvcSubproject = SubprojectService.GetSubrojectByProjectIdAndSubprojectType(project_id, ((int)Enumerations.ProjectType.PVC));
         }
     }
 }

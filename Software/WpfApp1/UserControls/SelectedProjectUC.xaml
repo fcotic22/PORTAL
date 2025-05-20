@@ -1,12 +1,87 @@
-﻿<UserControl x:Class="Presentation_Layer.UserControls.SelectedProjectUC"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Presentation_Layer.UserControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="Presentation_Layer.UserControls.SelectedProjectUC"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="530" d:DesignWidth="815">
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="65*" />
+            <ColumnDefinition Width="25*" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="LightSeaGreen">
+                <Button Height="25" Margin="5,0,0,0" Content="s" />
+                <Button Height="25" Margin="5,0,0,0" Content="d" />
+                <Button Height="25" Margin="5,0,0,0" Content="df" />
+            </StackPanel>
+
+            <ContentControl>
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Gornji lijevi dio (naslovi, opisi, itd.) -->
+                    <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical">
+                        <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Height="35" Content="Projekt:" Margin="15,15,0,0"/>
+                        <Label x:Name="lblBuyer" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Kupac: </Label>
+                        <Label x:Name="lblStartDate" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Datum početka: </Label>
+                        <Label x:Name="lblDueDate" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Rok završetaka: </Label>
+                        <Label x:Name="lblEndDate" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Datum završetka: </Label>
+                        <Label x:Name="lblStatus" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Status:</Label>
+                        <Label x:Name="lblPrioritet" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Prioritet:</Label>
+                        
+                    </StackPanel>
+
+                    <!-- Gornji desni dio (cSite, obavijesti, zapisi, fileovi) -->
+
+                    <StackPanel Grid.Column="1" Grid.Row="0">
+                        <Button x:Name="btnBuyer" Width="100" Margin="0,20,0,10">Podaci o kupcu</Button>
+                        <Button x:Name="btnNotes" Width="100" Margin="0,0,0,10">Zapisi o projektu</Button>
+                        <Button x:Name="btnFiles" Width="100" Margin="0,0,0,10">Pregled datoteka</Button>
+                        <Button x:Name="btnCSite" Width="100" Margin="0,0,0,10">Gradilište projekta</Button>
+                    </StackPanel>
+
+                    <!-- Donji dio -->
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="6*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" FontSize="18" FontWeight="Bold">ODABIR PODPROJEKTA</Label>
+                        <Button x:Name="btnPVCproject" Grid.Column="0" Grid.Row="1" BorderThickness="3" BorderBrush="Black" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" Click="btnPVCproject_Click">
+                            <Image Source="/Resources/pvcSample.png" Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        </Button>
+                        <Button x:Name="btnALUproject" Grid.Column="1" Grid.Row="1" BorderThickness="3" BorderBrush="Black" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" Click="btnALUproject_Click">
+                            <Image Source="/Resources/aluSample.jpeg" Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        </Button>
+                        <Button x:Name="btnFacadeProject" Grid.Column="2" Grid.Row="1" BorderThickness="3" BorderBrush="Black" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" Click="btnFacadeProject_Click">
+                            <Image Source="/Resources/facadeSample.png" Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </ContentControl>
+        </DockPanel>
     </Grid>
 </UserControl>
