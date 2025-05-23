@@ -21,9 +21,9 @@ public partial class Task
 
     public DateTime dueDate { get; set; }
 
-    public string status { get; set; }
+    public int status { get; set; }
 
-    public string priority { get; set; }
+    public int priority { get; set; }
 
     public virtual ICollection<Step> Steps { get; set; } = new List<Step>();
 

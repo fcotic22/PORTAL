@@ -1,4 +1,5 @@
 ﻿using Bussiness_Logic_Layer.Services;
+using Entities;
 using Entities.Models;
 using Notifications.Wpf.Core;
 using System;
@@ -24,17 +25,11 @@ namespace Presentation_Layer.UserControls
     public partial class EmployeesUC : UserControl
     {
         private EmployeeService employeeService;
-        private NotificationManager notificationManager;
-        private NotificationService notificationService;
-        private UCHelper UCHelper;
         private LeaveService leaveService;
         public EmployeesUC()
         {
             InitializeComponent();
             employeeService = new EmployeeService();
-            notificationManager = new NotificationManager();
-            notificationService = new NotificationService();
-            UCHelper = new UCHelper();
             leaveService = new LeaveService();
         }
 
@@ -70,13 +65,13 @@ namespace Presentation_Layer.UserControls
             btnAdd.Visibility = Visibility.Visible;
             btnEdit.Visibility = Visibility.Hidden;
             MakeLeaveInputsHidden();
-            cmbStatus.ItemsSource = new List<string> { "Stalno", "Ispomoć" };
+            cmbStatus.ItemsSource = Enum.GetValues(typeof(Enumerations.StatusOfEmployment));
         }
 
         private void btnEditEmployee_Click(object sender, RoutedEventArgs e)
         {
             var selectedEmployee = dgEmployees.SelectedItem as Employee;
-            cmbStatus.ItemsSource = new List<string> { "Stalno", "Ispomoć", "Stalno - na bolovanju", "Otpušten" };
+            cmbStatus.ItemsSource = Enum.GetValues(typeof(Enumerations.StatusOfEmployment));
 
             if (selectedEmployee != null)
             {
@@ -84,21 +79,11 @@ namespace Presentation_Layer.UserControls
                 txtHeader.Text = "Uređivanje podataka zaposlenika";
                 btnEdit.Visibility = Visibility.Visible;
                 btnAdd.Visibility = Visibility.Hidden;
+                formForAddingAndEditing.DataContext = selectedEmployee;
 
-                txtName.Text = selectedEmployee.name;
-                txtSurname.Text = selectedEmployee.surname;
-                txtOib.Text = selectedEmployee.oib.ToString();
-                txtTelephone.Text = selectedEmployee.phone;
-                txtAdress.Text = selectedEmployee.adress;
-                txtCity.Text = selectedEmployee.city;
-                txtCountry.Text = selectedEmployee.country;
-                txtZipcode.Text = selectedEmployee.zipCode.ToString();
-                txtBankAccountNumber.Text = selectedEmployee.bankAccountNumber;
-                txtNote.Text = selectedEmployee.notes;
-                txtHourlyPay.Text = selectedEmployee.hourlyPay.ToString();
-                cmbStatus.Text = selectedEmployee.status.ToString();
                 if(selectedEmployee.isOnLeave == 1)
                 {
+                    cmbStatus.SelectedIndex = (int)Enumerations.StatusOfEmployment.Bolovanje;
                     MakeLeaveInputsVisible();
                     var currentLeave = leaveService.GetCurrentLeaveForEmployeeId(selectedEmployee.id);
                     dtpLeaveStart.SelectedDate = currentLeave.startDate;
@@ -148,7 +133,7 @@ namespace Presentation_Layer.UserControls
                 bankAccountNumber = txtBankAccountNumber.Text,
                 notes = txtNote.Text,
                 hourlyPay = int.Parse(txtHourlyPay.Text),
-                status = cmbStatus.Text,
+                statusOfEmployment = (int)(Enumerations.StatusOfEmployment)cmbStatus.SelectedIndex,
                 isOnLeave = 0
             };
             employeeService.AddNewEmployee(newEmployee);
@@ -162,7 +147,7 @@ namespace Presentation_Layer.UserControls
             if (ValidateForm() == false) return;
 
             var isOnLeave = false;
-            if(cmbStatus.SelectedIndex == 2)
+            if(cmbStatus.SelectedIndex == (int)Enumerations.StatusOfEmployment.Bolovanje)
             {
                 if(ValidateLeaveForm() == false) return;
 
@@ -214,7 +199,7 @@ namespace Presentation_Layer.UserControls
                 bankAccountNumber = txtBankAccountNumber.Text,
                 notes = txtNote.Text,
                 hourlyPay = int.Parse(txtHourlyPay.Text),
-                status = cmbStatus.Text,
+                statusOfEmployment = (int)(Enumerations.StatusOfEmployment)cmbStatus.SelectedIndex,
                 isOnLeave = isOnLeave ? 1 : 0, 
             };
             employeeService.UpdateEmployee(employee);
@@ -248,6 +233,7 @@ namespace Presentation_Layer.UserControls
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             ClearAndCloseForm();
+            UserControl_Loaded(sender, e);
         }
         private bool ValidateForm()
         {
@@ -297,12 +283,13 @@ namespace Presentation_Layer.UserControls
             dtpLeaveStart.Text = string.Empty;
             dtpLeaveEnd.Text = string.Empty;
             formForAddingAndEditing.Visibility = Visibility.Hidden;
+            dgEmployees.SelectedItem = null;
         }
 
 
         private void cmbStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cmbStatus.SelectedIndex == 2)
+            if (cmbStatus.SelectedIndex == (int)Enumerations.StatusOfEmployment.Bolovanje)
             {
                 MakeLeaveInputsVisible();
             }

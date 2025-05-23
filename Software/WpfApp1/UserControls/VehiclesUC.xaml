@@ -14,7 +14,7 @@
 
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
-            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="LightSeaGreen">
+            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="#2F9395">
                 <Button x:Name="btnAddVehicle" Height="25" Margin="5,0,0,0" Click="btnAddVehicle_Click">Dodaj vozilo</Button>
                 <Button x:Name="btnRemoveVehicle" Height="25" Margin="5,0,0,0" Click="btnRemoveVehicle_Click">Ukloni vozilo</Button>
                 <Button x:Name="btnEditVehicle" Height="25" Margin="5,0,0,0" Click="btnEditVehicle_Click">Uredi podatke vozila</Button>
@@ -27,38 +27,35 @@
                 <TextBlock  x:Name="txtHeader" FontSize="16" FontWeight="Bold" Margin="0,40,0,0" HorizontalAlignment="Center"/>
 
                 <Label Content="Naziv vozila" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtName" Height="25" Width="350"/>
+                <TextBox x:Name="txtName" Text="{Binding name}" Height="25" Width="350"/>
 
                 <Label Content="Model" HorizontalAlignment="Center"/>
-                <TextBox Name="txtModel" Height="25" Width="350"/>
+                <TextBox Name="txtModel" Text="{Binding model}" Height="25" Width="350"/>
 
                 <Label Content="Registarska oznaka" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtRegistration" Height="25" Width="350"/>
+                <TextBox x:Name="txtRegistration" Text="{Binding licensePlate}" Height="25" Width="350"/>
 
                 <Label Content="Registracija vrijedi do" HorizontalAlignment="Center"/>
-                <DatePicker x:Name="dtpRegistrationValidTo" Height="25" Width="350"/>
+                <DatePicker x:Name="dtpRegistrationValidTo"  Height="25" Width="350"/>
 
                 <Label Content="Proizvođač" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtManufacturer" Height="25" Width="350"/>
+                <TextBox x:Name="txtManufacturer" Text="{Binding manufacturer}" Height="25" Width="350"/>
 
                 <Label Content="Vrsta pogona:" HorizontalAlignment="Center"/>
-                <ComboBox x:Name="cmbFuelType" Height="25" Width="350"/>
+                <ComboBox x:Name="cmbFuelType" Text="{Binding fuelType}" Height="25" Width="350"/>
 
                 <Label Content="Broj sjedala" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtNoOfSeats" Height="25" Width="350"/>
+                <TextBox x:Name="txtNoOfSeats" Text="{Binding noOfSeats}" Height="25" Width="350"/>
 
                 <Label Content="Godina proizvodnje" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtProductionYear" Height="25" Width="350"/>
+                <TextBox x:Name="txtProductionYear" Text="{Binding productionYear}" Height="25" Width="350"/>
 
                 <Label Content="Dodjeli zaposlenika (opcionalno)" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" Width="350">
-                    <ComboBox x:Name="cmbEmployee" Height="25" SelectionChanged="cmbEmployee_SelectionChanged" Width="350"/>
+                    <ComboBox x:Name="cmbEmployee" SelectedItem="{Binding assignedTo}" Height="25" SelectionChanged="cmbEmployee_SelectionChanged" Width="350"/>
                     <Button x:Name="btnRemoveAssignment" Click="btnRemoveAssignment_Click" Margin="5" FontSize="10" Width="20" Height="20" Content="X" FontWeight="Bold" Background="Red" Foreground="White"></Button>
                 </StackPanel>
-                
-
-
-
+               
                 <Grid HorizontalAlignment="Center" Margin="0,15,0,0">
                     <Button x:Name="btnEdit" Width="200" Content="Dodaj izmjenu" Height="25" Click="btnAction_Click" Background="Black" Foreground="White"/>
                     <Button x:Name="btnAdd" Content="Dodaj vozilo" Width="200" Height="25" Click="btnAdd_Click" Background="Black" Foreground="White"/>

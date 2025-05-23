@@ -27,5 +27,7 @@ public partial class Buyer
 
     public string company { get; set; }
 
+    public string bankAccountNumber { get; set; }
+
     public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
 }

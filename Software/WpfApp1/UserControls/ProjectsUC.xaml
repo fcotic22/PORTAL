@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
 
-            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="LightSeaGreen">
+            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="#2F9395">
                 <Button  Height="25" Margin="5,0,0,0" Content="Svi projekti" />
                 <Button  Height="25" Margin="5,0,0,0" Content="Zatvoreni projekti" />
                 <Button  Height="25" Margin="5,0,0,0" Content="Otvoreni projekti" />

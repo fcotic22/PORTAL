@@ -16,17 +16,15 @@ namespace Presentation_Layer.UserControls
     {
         private VehicleService vehicleService;
         private EmployeeService employeeService;
-        private NotificationManager notificationManager;
+        
         private NotificationService notificationService;
-        private UCHelper UCHelper;
+        
         public VehiclesUC()
         {
             InitializeComponent();
             vehicleService = new VehicleService();
             employeeService = new EmployeeService();
-            notificationManager = new NotificationManager();
             notificationService = new NotificationService();
-            UCHelper = new UCHelper();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -92,14 +90,8 @@ namespace Presentation_Layer.UserControls
                 btnAdd.Visibility = Visibility.Hidden;
 
                 cmbEmployee.ItemsSource = employeeService.GetAllEmployeeNames();
-                txtName.Text = selectedVehicle.name;
-                txtModel.Text = selectedVehicle.model;
-                txtRegistration.Text = selectedVehicle.licensePlate;
-                dtpRegistrationValidTo.Text = selectedVehicle.registrationValidTo.ToString();
-                txtNoOfSeats.Text = selectedVehicle.noOfSeats.ToString();
-                txtManufacturer.Text = selectedVehicle.manufacturer;
-                cmbFuelType.Text = selectedVehicle.fuelType;
-                txtProductionYear.Text = selectedVehicle.productionYear.ToString();
+                formForAddingAndEditing.DataContext = selectedVehicle;
+                dtpRegistrationValidTo.SelectedDate = selectedVehicle.registrationValidTo;
             }
             else
             {
@@ -196,6 +188,7 @@ namespace Presentation_Layer.UserControls
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             ClearAndCloseForm();
+            UserControl_Loaded(sender, e);
         }
 
         private void ClearAndCloseForm()
@@ -239,7 +232,6 @@ namespace Presentation_Layer.UserControls
         {
             cmbEmployee.SelectedIndex = -1;
             cmbEmployee.Width = 350;
-            btnRemoveAssignment.IsEnabled = false;
             btnRemoveAssignment.Visibility = Visibility.Hidden;
         }
 

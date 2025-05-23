@@ -21,7 +21,7 @@ public partial class Subproject
 
     public string colorOfWing { get; set; }
 
-    public string status { get; set; }
+    public int status { get; set; }
 
     public virtual ICollection<GlassForSubproject> GlassForSubprojects { get; set; } = new List<GlassForSubproject>();
 

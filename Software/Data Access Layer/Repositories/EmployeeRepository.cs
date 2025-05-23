@@ -25,7 +25,7 @@ namespace Data_Access_Layer.Repositories
             employee.bankAccountNumber = entity.bankAccountNumber;
             employee.notes = entity.notes;
             employee.hourlyPay = entity.hourlyPay;
-            employee.status = entity.status;
+            employee.statusOfEmployment = entity.statusOfEmployment;
             employee.isOnLeave = entity.isOnLeave;
             
             if (saveChanges)

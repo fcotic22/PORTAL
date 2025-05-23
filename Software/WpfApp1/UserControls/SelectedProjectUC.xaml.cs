@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Bussiness_Logic_Layer.Services;
+using Entities.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,24 @@ namespace Presentation_Layer.UserControls
     public partial class SelectedProjectUC : UserControl
     {
         private Project Project;
+        private Buyer Buyer;
         public SelectedProjectUC(Project project)
         {
             InitializeComponent();
             Project = project;
+            Buyer = BuyerService.GetBuyerById(project.buyer_id);
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            txtName.Text += " " + Project.name;
+            txtDescription.Text += " " + Project.description;
+            txtBuyer.Text += " " + Buyer.name;
+            txtStartDate.Text += " " + Project.startDate.ToString("dd/MM/yyyy");
+            txtDueDate.Text += " " + Project.dueDate.ToString("dd/MM/yyyy");
+            txtEndDate.Text += " " + Project.endDate?.ToString("dd/MM/yyyy");
+            txtStatus.Text += " " + Project.status.ToString();
+            txtPriority.Text += " " + Project.priority.ToString();
         }
         private void btnFacadeProject_Click(object sender, RoutedEventArgs e)
         {
@@ -45,6 +56,35 @@ namespace Presentation_Layer.UserControls
         private void btnPVCproject_Click(object sender, RoutedEventArgs e)
         {
             GUIManager.Open(new PVCProjectUC(Project.id));
-        }   
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ProjectsUC());
+        }
+        private void btnBuyer_Click(object sender, RoutedEventArgs e)
+        {
+            info.Visibility = Visibility.Visible;
+            info.DataContext = Buyer;
+        }
+        private void BtnCloseBuyerInfo_Click(object sender, RoutedEventArgs e)
+        {
+            info.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnCSite_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ConstructionSiteUC(Project.id));
+        }
+
+        private void btnFiles_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ProjectFilesUC(Project.id));
+        }
+
+        private void btnNotes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

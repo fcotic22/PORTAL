@@ -104,6 +104,9 @@ public partial class PORTAL_DBContext : DbContext
             entity.Property(e => e.adress)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.bankAccountNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.city)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -309,10 +312,6 @@ public partial class PORTAL_DBContext : DbContext
             entity.Property(e => e.phone)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.status)
-                .IsRequired()
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.surname)
                 .IsRequired()
                 .HasMaxLength(255)
@@ -403,10 +402,6 @@ public partial class PORTAL_DBContext : DbContext
             entity.ToTable("GlassForSubproject");
 
             entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.status)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -504,14 +499,6 @@ public partial class PORTAL_DBContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.dueDate).HasColumnType("date");
             entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.priority)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.status)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -773,20 +760,16 @@ public partial class PORTAL_DBContext : DbContext
 
             entity.ToTable("Project");
 
+            entity.Property(e => e.description)
+                .HasMaxLength(3000)
+                .IsUnicode(false);
             entity.Property(e => e.dueDate).HasColumnType("date");
             entity.Property(e => e.endDate).HasColumnType("date");
             entity.Property(e => e.name)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.priority)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.startDate).HasColumnType("date");
-            entity.Property(e => e.status)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
 
             entity.HasOne(d => d.buyer).WithMany(p => p.Projects)
                 .HasForeignKey(d => d.buyer_id)
@@ -852,10 +835,6 @@ public partial class PORTAL_DBContext : DbContext
             entity.Property(e => e.profile)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.status)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
 
             entity.HasOne(d => d.project).WithMany(p => p.Subprojects)
                 .HasForeignKey(d => d.project_id)
@@ -877,14 +856,6 @@ public partial class PORTAL_DBContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.dueDate).HasColumnType("date");
             entity.Property(e => e.name)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.priority)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.status)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);

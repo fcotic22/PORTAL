@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
 
-            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="LightSeaGreen">
+            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="#2F9395">
                 <Button x:Name="btnAddEmployee"  Height="25" Margin="5,0,0,0" Click="btnAddEmployee_Click" >Dodaj zaposlenika</Button>
                 <Button x:Name="btnEditEmployee" Height="25" Margin="5,0,0,0" Click="btnEditEmployee_Click" >Uredi podatke zaposlenika</Button>
                 <Button x:Name="btnRemoveEmployee" Height="25" Margin="5,0,0,0" Click="btnRemoveEmployee_Click" >Izbriši zaposlenika</Button>
@@ -28,40 +28,40 @@
                 <TextBlock  x:Name="txtHeader" FontSize="14" FontWeight="Bold" Margin="0,40,0,0" HorizontalAlignment="Center"/>
 
                 <Label Content="Ime *" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtName" Height="25" Width="350"/>
+                <TextBox x:Name="txtName" Text="{Binding name}" Height="25" Width="350"/>
 
                 <Label Content="Prezime *" HorizontalAlignment="Center"/>
-                <TextBox Name="txtSurname" Height="25" Width="350"/>
+                <TextBox Name="txtSurname" Text="{Binding surname}" Height="25" Width="350"/>
 
                 <Label Content="OIB/JMBG" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtOib" Height="25" Width="350"/>
+                <TextBox x:Name="txtOib" Text="{Binding oib}" Height="25" Width="350"/>
 
                 <Label Content="Telefon" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtTelephone" Height="25" Width="350"/>
+                <TextBox x:Name="txtTelephone" Text="{Binding phone}" Height="25" Width="350"/>
 
                 <Label Content="Adresa" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtAdress" Height="25" Width="350"/>
+                <TextBox x:Name="txtAdress" Text="{Binding adress}" Height="25" Width="350"/>
 
                 <Label Content="Grad *" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtCity" Height="25" Width="350"/>
+                <TextBox x:Name="txtCity" Text="{Binding city}" Height="25" Width="350"/>
 
                 <Label Content="Zemlja *" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtCountry" Height="25" Width="350"/>
+                <TextBox x:Name="txtCountry" Text="{Binding country}" Height="25" Width="350"/>
 
                 <Label Content="Poštanski broj" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtZipcode" Height="25" Width="350"/>
+                <TextBox x:Name="txtZipcode" Text="{Binding zipCode}" Height="25" Width="350"/>
 
                 <Label Content="Broj računa" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtBankAccountNumber" Height="25" Width="350"/>
+                <TextBox x:Name="txtBankAccountNumber" Text="{Binding bankAccountNumber}" Height="25" Width="350"/>
 
                 <Label Content="Zabilješka" HorizontalAlignment="Center"/>
-                <TextBox  x:Name="txtNote" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="55" Width="350"/>
+                <TextBox  x:Name="txtNote" Text="{Binding notes}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="55" Width="350"/>
 
                 <Label Content="Plaća po satu *" HorizontalAlignment="Center"/>
-                <TextBox x:Name="txtHourlyPay" Height="25" Width="350"/>
+                <TextBox x:Name="txtHourlyPay" Text="{Binding hourlyPay}" Height="25" Width="350"/>
 
                 <Label Content="Status zaposlenja" HorizontalAlignment="Center"/>
-                <ComboBox x:Name="cmbStatus" Height="25" Width="350" SelectionChanged="cmbStatus_SelectionChanged"/>
+                <ComboBox x:Name="cmbStatus" Height="25" Text="{Binding statusOfEmployement}" Width="350" SelectionChanged="cmbStatus_SelectionChanged"/>
 
                 <Label x:Name="lblLeaveStart" Content="Početak bolovanja" HorizontalAlignment="Center" Visibility="Hidden"></Label>
                 <DatePicker x:Name="dtpLeaveStart" Visibility="Hidden"  Height="25" Width="350"></DatePicker>

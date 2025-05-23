@@ -61,14 +61,13 @@ namespace WpfApp1
             GUIManager.Open(new BuyersUC());
         }
 
-        private void btnSuppliers_Click(object sender, RoutedEventArgs e)
+        private void btnOrders_Click(object sender, RoutedEventArgs e)
         {
-            GUIManager.Open(new SuppliersUC());
+            GUIManager.Open(new OrdersUC());
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GUIManager.Open(new SelectedProjectUC(new Project()));
+            GUIManager.Open(new ProjectsUC());
         }
     }
 }

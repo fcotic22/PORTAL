@@ -27,7 +27,7 @@ namespace Presentation_Layer.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-           
+           dgProjects.ItemsSource = projects;
         }
 
         private void dgProjects_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

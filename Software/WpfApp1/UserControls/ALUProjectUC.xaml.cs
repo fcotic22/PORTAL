@@ -31,5 +31,10 @@ namespace Presentation_Layer.UserControls
             project = ProjectService.GetProjectById(project_id);
             aluSubproject = SubprojectService.GetSubrojectByProjectIdAndSubprojectType(project_id, ((int)Enumerations.ProjectType.ALU));
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Close();
+        }
     }
 }

@@ -12,13 +12,14 @@ namespace Presentation_Layer.UserControls
     {
         private static NotificationManager notificationManager;
 
-        public UCHelper() 
-        {
-            notificationManager = new NotificationManager();
-        }
+        public UCHelper() {}
 
         public static void DisplayNotification(string title, string message, NotificationType type) 
         {
+            if (notificationManager == null)
+            {
+                notificationManager = new NotificationManager();
+            }
             var notificationContent = new NotificationContent
             {
                 Title = title,

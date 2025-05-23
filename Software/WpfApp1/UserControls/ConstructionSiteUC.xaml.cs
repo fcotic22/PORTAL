@@ -1,5 +1,4 @@
 ﻿using Bussiness_Logic_Layer.Services;
-using Entities;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
@@ -19,17 +18,15 @@ using System.Windows.Shapes;
 namespace Presentation_Layer.UserControls
 {
     /// <summary>
-    /// Interaction logic for FacadeProjectUC.xaml
+    /// Interaction logic for ConstructionSiteUC.xaml
     /// </summary>
-    public partial class FacadeProjectUC : UserControl
+    public partial class ConstructionSiteUC : UserControl
     {
-        private Project project;
-        private Subproject facadeSubproject;
-        public FacadeProjectUC(int project_id)
+        private Project Project;
+        public ConstructionSiteUC(int project_id)
         {
             InitializeComponent();
-            project = ProjectService.GetProjectById(project_id);
-            facadeSubproject = SubprojectService.GetSubrojectByProjectIdAndSubprojectType(project_id, ((int)Enumerations.ProjectType.FACADE));
+            Project = ProjectService.GetProjectById(project_id);
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

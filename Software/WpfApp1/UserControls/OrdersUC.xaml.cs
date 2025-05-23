@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Presentation_Layer.UserControls
 {
     /// <summary>
-    /// Interaction logic for SuppliersUC.xaml
+    /// Interaction logic for OrdersUC.xaml
     /// </summary>
-    public partial class SuppliersUC : UserControl
+    public partial class OrdersUC : UserControl
     {
-        public SuppliersUC()
+        public OrdersUC()
         {
             InitializeComponent();
         }

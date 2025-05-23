@@ -14,11 +14,12 @@
         </Grid.ColumnDefinitions>
         <DockPanel Grid.ColumnSpan="2">
 
-            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="LightSeaGreen">
-                <Button  Height="25" Margin="5,0,0,0" >s</Button>
-                <Button  Height="25" Margin="5,0,0,0" >d</Button>
-                <Button  Height="25" Margin="5,0,0,0" >df</Button>
-            </StackPanel>
+            <DockPanel Height="35" Background="#2F9395" LastChildFill="False" DockPanel.Dock="Top">
+                <Button Height="25" Margin="5,0,0,0" Content="s"/>
+                <Button Height="25" Margin="5,0,0,0" Content="d"/>
+                <Button Height="25" Margin="5,0,0,0" Content="df"/>
+                <Button x:Name="btnBack" Height="25" Margin="5,0,5,0" Content="Nazad na projekt" DockPanel.Dock="Right" Click="btnBack_Click"/>
+            </DockPanel>
 
             <ContentControl></ContentControl>
         </DockPanel>

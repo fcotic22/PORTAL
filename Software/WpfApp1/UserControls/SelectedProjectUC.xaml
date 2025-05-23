@@ -5,83 +5,397 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Presentation_Layer.UserControls"
              xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
-             xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="Presentation_Layer.UserControls.SelectedProjectUC"
-             mc:Ignorable="d" Loaded="UserControl_Loaded"
-             d:DesignHeight="530" d:DesignWidth="815">
-        <Grid>
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
+             x:Class="Presentation_Layer.UserControls.SelectedProjectUC"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="900" 
+             d:DesignWidth="1200">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="17*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="65*" />
-            <ColumnDefinition Width="25*" />
-        </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <StackPanel Height="35" Orientation="Horizontal" DockPanel.Dock="Top" Background="LightSeaGreen">
-                <Button Height="25" Margin="5,0,0,0" Content="s" />
-                <Button Height="25" Margin="5,0,0,0" Content="d" />
-                <Button Height="25" Margin="5,0,0,0" Content="df" />
+        <!-- Top Navigation Bar -->
+        <DockPanel Grid.Row="0" Height="35" Background="#2F9395" LastChildFill="False">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0">
+                <Button Height="35" Width="35" Margin="5,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent">
+                    <TextBlock Text="⚙️" FontSize="20"/>
+                </Button>
+                <Button Height="35" Width="35" Margin="5,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent">
+                    <TextBlock Text="📋" FontSize="20"/>
+                </Button>
+                <Button Height="35" Width="35" Margin="5,0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent">
+                    <TextBlock Text="📁" FontSize="20"/>
+                </Button>
             </StackPanel>
+            <Button x:Name="btnBack" 
+                    Height="25" 
+                    Padding="15,0"
+                    Margin="5,0" 
+                    Content="Nazad na projekte" 
+                    DockPanel.Dock="Right" 
+                    Click="btnBack_Click"
+                    Background="White"
+                    BorderThickness="1"/>
+        </DockPanel>
 
-            <ContentControl>
-                <Grid Background="White">
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Top Section with Project Info and Action Buttons -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Side - Project Details -->
+                <GroupBox Header="Informacije o projektu" 
+                         Margin="0,0,10,0"
+                         Padding="15"
+                         BorderThickness="1"
+                         BorderBrush="#2F9395">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"
+                                     FontSize="22"
+                                     FontWeight="SemiBold"
+                                     Foreground="#2F9395"/>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <StackPanel>
+                        <TextBlock x:Name="txtName" 
+                                 FontSize="26" 
+                                 FontWeight="Bold" 
+                                 Margin="0,0,0,20"
+                                 Foreground="#2F9395">Projekt:</TextBlock>
+
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Grid.ColumnSpan="2" 
+                                    Background="#f8f9fa" 
+                                    CornerRadius="4" 
+                                    Margin="0,0,0,15"
+                                    Padding="10">
+                                <StackPanel>
+                                    <TextBlock Text="Opis:" 
+                                             FontWeight="SemiBold" 
+                                             FontSize="16" 
+                                             Margin="0,0,0,5"/>
+                                    <TextBlock x:Name="txtDescription" 
+                                             TextWrapping="Wrap" 
+                                             FontSize="16"/>
+                                </StackPanel>
+                            </Border>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" 
+                                     Text="Kupac:" 
+                                     FontWeight="SemiBold" 
+                                     FontSize="16" 
+                                     Margin="0,0,15,15"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" 
+                                     x:Name="txtBuyer" 
+                                     FontSize="16" 
+                                     Margin="0,0,0,15"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" 
+                                     Text="Datum početka:" 
+                                     FontWeight="SemiBold" 
+                                     FontSize="16" 
+                                     Margin="0,0,15,15"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" 
+                                     x:Name="txtStartDate" 
+                                     FontSize="16" 
+                                     Margin="0,0,0,15"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" 
+                                     Text="Rok završetka:" 
+                                     FontWeight="SemiBold" 
+                                     FontSize="16" 
+                                     Margin="0,0,15,15"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" 
+                                     x:Name="txtDueDate" 
+                                     FontSize="16" 
+                                     Margin="0,0,0,15"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" 
+                                     Text="Datum završetka:" 
+                                     FontWeight="SemiBold" 
+                                     FontSize="16" 
+                                     Margin="0,0,15,15"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" 
+                                     x:Name="txtEndDate" 
+                                     FontSize="16" 
+                                     Margin="0,0,0,15"/>
+
+                            <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Background="#f8f9fa"
+                                    CornerRadius="4"
+                                    Margin="0,0,0,15"
+                                    Padding="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" 
+                                             Text="Status:" 
+                                             FontWeight="SemiBold" 
+                                             FontSize="16" 
+                                             Margin="0,0,15,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                             x:Name="txtStatus" 
+                                             FontSize="16" 
+                                             Margin="0,0,30,0"/>
+
+                                    <TextBlock Grid.Column="2" 
+                                             Text="Prioritet:" 
+                                             FontWeight="SemiBold" 
+                                             FontSize="16" 
+                                             Margin="0,0,15,0"/>
+                                    <TextBlock Grid.Column="3" 
+                                             x:Name="txtPriority" 
+                                             FontSize="16"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Right Side - Action Buttons -->
+                <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
 
-                    <!-- Gornji lijevi dio (naslovi, opisi, itd.) -->
-                    <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Vertical">
-                        <Label FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" Height="35" Content="Projekt:" Margin="15,15,0,0"/>
-                        <Label x:Name="lblBuyer" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Kupac: </Label>
-                        <Label x:Name="lblStartDate" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Datum početka: </Label>
-                        <Label x:Name="lblDueDate" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Rok završetaka: </Label>
-                        <Label x:Name="lblEndDate" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Datum završetka: </Label>
-                        <Label x:Name="lblStatus" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Status:</Label>
-                        <Label x:Name="lblPrioritet" FontSize="14" HorizontalAlignment="Left" Height="30" Margin="15,0,0,0">Prioritet:</Label>
-                        
-                    </StackPanel>
+                    <!-- Action Buttons -->
+                    <Border Grid.Row="0" 
+                            Background="White" 
+                            CornerRadius="8" 
+                            Padding="15"
+                            Margin="0,80,0,15"
+                            Effect="{DynamicResource MaterialDesignElevationShadow2}">
+                        <UniformGrid Columns="2" HorizontalAlignment="Center">
+                            <Button x:Name="btnBuyer" 
+                                    Margin="5"
+                                    Height="100"
+                                    Background="#fff5f7"
+                                    BorderThickness="1"
+                                    BorderBrush="#feb2b2"
+                                    Click="btnBuyer_Click">
+                                <StackPanel>
+                                    <TextBlock Text="👤" FontSize="32" Margin="0,0,0,5"/>
+                                    <TextBlock Text="Podaci o kupcu" 
+                                             TextWrapping="Wrap" 
+                                             TextAlignment="Center"
+                                             FontSize="14"
+                                             FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="btnNotes" 
+                                    Margin="5"
+                                    Height="100"
+                                   Background="#fff5f7"
+                                    BorderThickness="1"
+                                    BorderBrush="#feb2b2"
+                                    Click="btnNotes_Click">
+                                <StackPanel>
+                                    <TextBlock Text="📝" FontSize="32" Margin="0,0,0,5"/>
+                                    <TextBlock Text="Zapisi o projektu" 
+                                             TextWrapping="Wrap" 
+                                             TextAlignment="Center"
+                                             FontSize="14"
+                                             FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="btnFiles" 
+                                    Margin="5"
+                                    Height="100"
+                                    Background="#fff5f7"
+                                    BorderThickness="1"
+                                    BorderBrush="#feb2b2"
+                                    Click="btnFiles_Click">
+                                <StackPanel>
+                                    <TextBlock Text="📂" FontSize="32" Margin="0,0,0,5"/>
+                                    <TextBlock Text="Pregled datoteka" 
+                                             TextWrapping="Wrap" 
+                                             TextAlignment="Center"
+                                             FontSize="14"
+                                             FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="btnCSite" 
+                                    Margin="5"
+                                    Height="100"
+                                    Background="#fff5f7"
+                                    BorderThickness="1"
+                                    BorderBrush="#feb2b2"
+                                    Click="btnCSite_Click">
+                                <StackPanel>
+                                    <TextBlock Text="🏗️" FontSize="32" Margin="0,0,0,5"/>
+                                    <TextBlock Text="Gradilište projekta" 
+                                             TextWrapping="Wrap" 
+                                             TextAlignment="Center"
+                                             FontSize="14"
+                                             FontWeight="SemiBold"/>
+                                </StackPanel>
+                            </Button>
+                        </UniformGrid>
+                    </Border>
 
-                    <!-- Gornji desni dio (cSite, obavijesti, zapisi, fileovi) -->
+                    <!-- Buyer Info Popup -->
+                    <ContentControl Grid.Row="0" Grid.RowSpan="2" x:Name="info" Visibility="Hidden" Panel.ZIndex="99">
+                        <Border Background="White" 
+                                CornerRadius="8" 
+                                Padding="20" 
+                                Margin="10"
+                                Effect="{DynamicResource MaterialDesignElevationShadow16}">
+                            <StackPanel>
+                                <Grid Margin="0,0,0,15">
+                                    <TextBlock Text="Podaci o kupcu" 
+                                             FontWeight="Bold" 
+                                             FontSize="20"/>
+                                    <Button Content="✕" 
+                                            Width="30" 
+                                            Height="30"
+                                            HorizontalAlignment="Right"
+                                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                            Background="Transparent"
+                                            Click="BtnCloseBuyerInfo_Click"/>
+                                </Grid>
+                                <TextBlock Text="{Binding name}" FontSize="14" Margin="0,5"/>
+                                <TextBlock Text="{Binding company}" FontSize="14" Margin="0,5"/>
+                                <TextBlock Text="{Binding email}" FontSize="14" Margin="0,5"/>
+                                <TextBlock Text="{Binding phone}" FontSize="14" Margin="0,5"/>
+                                <TextBlock Text="{Binding city}" FontSize="14" Margin="0,5"/>
+                                <TextBlock Text="{Binding country}" FontSize="14" Margin="0,5"/>
+                            </StackPanel>
+                        </Border>
+                    </ContentControl>
+                </Grid>
+            </Grid>
 
-                    <StackPanel Grid.Column="1" Grid.Row="0">
-                        <Button x:Name="btnBuyer" Width="100" Margin="0,20,0,10">Podaci o kupcu</Button>
-                        <Button x:Name="btnNotes" Width="100" Margin="0,0,0,10">Zapisi o projektu</Button>
-                        <Button x:Name="btnFiles" Width="100" Margin="0,0,0,10">Pregled datoteka</Button>
-                        <Button x:Name="btnCSite" Width="100" Margin="0,0,0,10">Gradilište projekta</Button>
-                    </StackPanel>
+            <!-- Bottom Section - Subproject Selection -->
+            <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                <StackPanel>
+                    <TextBlock Text="ODABIR PODPROJEKTA" 
+                             FontSize="22" 
+                             FontWeight="Bold" 
+                             Foreground="Black"
+                             HorizontalAlignment="Center"
+                             Margin="0,0,0,20"/>
 
-                    <!-- Donji dio -->
-                    <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="White">
+                    <Grid Height="420" Margin="0,0,0,20">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="6*"/>
-                        </Grid.RowDefinitions>
 
-                        <Label HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" FontSize="18" FontWeight="Bold">ODABIR PODPROJEKTA</Label>
-                        <Button x:Name="btnPVCproject" Grid.Column="0" Grid.Row="1" BorderThickness="3" BorderBrush="Black" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" Click="btnPVCproject_Click">
-                            <Image Source="/Resources/pvcSample.png" Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        <Button x:Name="btnPVCproject" 
+                                Grid.Column="0"
+                                Margin="10"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Background="White"
+                                BorderThickness="1"
+                                BorderBrush="#DDDDDD"
+                                Click="btnPVCproject_Click">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="/Resources/pvcSample.png" 
+                                       Grid.Row="0"
+                                       Stretch="Uniform"
+                                       Margin="20"/>
+                                <TextBlock Text="PVC" 
+                                         Grid.Row="1"
+                                         HorizontalAlignment="Center"
+                                         Margin="0,0,0,15"
+                                         FontSize="20"
+                                         FontWeight="SemiBold"/>
+                            </Grid>
                         </Button>
-                        <Button x:Name="btnALUproject" Grid.Column="1" Grid.Row="1" BorderThickness="3" BorderBrush="Black" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" Click="btnALUproject_Click">
-                            <Image Source="/Resources/aluSample.jpeg" Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+                        <Button x:Name="btnALUproject" 
+                                Grid.Column="1"
+                                Margin="10"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Background="White"
+                                BorderThickness="1"
+                                BorderBrush="#DDDDDD"
+                                Click="btnALUproject_Click">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="/Resources/aluSample.jpeg" 
+                                       Grid.Row="0"
+                                       Stretch="Uniform"
+                                       Margin="20"/>
+                                <TextBlock Text="ALU" 
+                                         Grid.Row="1"
+                                         HorizontalAlignment="Center"
+                                         Margin="0,0,0,15"
+                                         FontSize="20"
+                                         FontWeight="SemiBold"/>
+                            </Grid>
                         </Button>
-                        <Button x:Name="btnFacadeProject" Grid.Column="2" Grid.Row="1" BorderThickness="3" BorderBrush="Black" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" Click="btnFacadeProject_Click">
-                            <Image Source="/Resources/facadeSample.png" Stretch="Uniform" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+
+                        <Button x:Name="btnFacadeProject" 
+                                Grid.Column="2"
+                                Margin="10"
+                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                                Background="White"
+                                BorderThickness="1"
+                                BorderBrush="#DDDDDD"
+                                Click="btnFacadeProject_Click">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="/Resources/facadeSample.png" 
+                                       Grid.Row="0"
+                                       Stretch="Uniform"
+                                       Margin="20"/>
+                                <TextBlock Text="FASADA" 
+                                         Grid.Row="1"
+                                         HorizontalAlignment="Center"
+                                         Margin="0,0,0,15"
+                                         FontSize="20"
+                                         FontWeight="SemiBold"/>
+                            </Grid>
                         </Button>
                     </Grid>
-                </Grid>
-            </ContentControl>
-        </DockPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
+

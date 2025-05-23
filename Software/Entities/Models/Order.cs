@@ -27,6 +27,8 @@ public partial class Order
 
     public DateTime? expectedDateOfOrder { get; set; }
 
+    public int status { get; set; }
+
     public virtual OtherSupplier otherSupplier { get; set; }
 
     public virtual ProfileSupplier profileSupplier { get; set; }

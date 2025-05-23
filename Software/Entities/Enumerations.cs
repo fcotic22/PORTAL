@@ -18,6 +18,10 @@ namespace Entities
             Open, InProgress, Closed, 
         }
 
+        public enum StatusOfEmployment
+        {
+            Otpušten, Stalno, Ispomoć, Bolovanje
+        }
         public enum ProjectType
         {
             PVC, ALU, FACADE 

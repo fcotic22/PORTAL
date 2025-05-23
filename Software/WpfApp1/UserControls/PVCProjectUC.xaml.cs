@@ -33,5 +33,15 @@ namespace Presentation_Layer.UserControls
             project = ProjectService.GetProjectById(project_id);
             pvcSubproject = SubprojectService.GetSubrojectByProjectIdAndSubprojectType(project_id, ((int)Enumerations.ProjectType.PVC));
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Close();
+        }
     }
 }

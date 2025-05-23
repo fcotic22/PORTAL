@@ -9,7 +9,7 @@ public partial class GlassForSubproject
 {
     public int glassProject_id { get; set; }
 
-    public string status { get; set; }
+    public int status { get; set; }
 
     public string name { get; set; }
 

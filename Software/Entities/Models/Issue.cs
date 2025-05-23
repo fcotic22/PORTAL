@@ -21,9 +21,9 @@ public partial class Issue
 
     public DateTime dueDate { get; set; }
 
-    public string status { get; set; }
+    public int status { get; set; }
 
-    public string priority { get; set; }
+    public int priority { get; set; }
 
     public virtual ICollection<IssueImage> IssueImages { get; set; } = new List<IssueImage>();
 

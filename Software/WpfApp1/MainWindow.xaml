@@ -9,10 +9,11 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="57*" />
+            <ColumnDefinition Width="143*"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2">
-            <StackPanel Grid.Column="0" Width="200" Background="LightSeaGreen">
+        <DockPanel Grid.ColumnSpan="3">
+            <StackPanel Grid.Column="0" Width="200" Background="#2F9395">
                 <TextBlock Height="35">Funkcije</TextBlock>
                 <Button x:Name="btnProjects" Click="btnProjects_Click">Projekti</Button>
                 <Button x:Name="btnConstructionSites" Click="btnConstructionSites_Click">Gradilišta</Button>
@@ -23,11 +24,11 @@
                 <TextBlock>Administracija</TextBlock>
                 <Button x:Name="btnEmployees" Click="btnEmployees_Click">Zaposlenici</Button>
                 <Button x:Name="btnBuyers" Click="btnBuyers_Click">Kupci</Button>
-                <Button x:Name="btnSuppliers" Click="btnSuppliers_Click">Dobavljači</Button>
+                <Button x:Name="btnOrders" Click="btnOrders_Click">Narudžbe</Button>
 
             </StackPanel>
             <ContentControl Grid.Column="1" x:Name="contentPanel"></ContentControl>
-            
+
         </DockPanel>
 
     </Grid>

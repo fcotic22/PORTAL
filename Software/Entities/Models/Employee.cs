@@ -31,7 +31,7 @@ public partial class Employee
 
     public int? hourlyPay { get; set; }
 
-    public string status { get; set; }
+    public int statusOfEmployment { get; set; }
 
     public int isOnLeave { get; set; }
 
