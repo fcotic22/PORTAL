@@ -11,7 +11,7 @@ public partial class File
 
     public int project_id { get; set; }
 
-    public string projectType { get; set; }
+    public int projectType { get; set; }
 
     public string name { get; set; }
 

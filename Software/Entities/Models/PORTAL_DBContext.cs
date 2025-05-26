@@ -365,10 +365,6 @@ public partial class PORTAL_DBContext : DbContext
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.projectType)
-                .IsRequired()
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.uploadDate).HasColumnType("date");
 
             entity.HasOne(d => d.project).WithMany(p => p.Files)

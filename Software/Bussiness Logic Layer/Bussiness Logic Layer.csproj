@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Files.Shares" Version="12.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Data Access Layer\Data Access Layer.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
