@@ -17,11 +17,11 @@ public partial class File
 
     public string description { get; set; }
 
-    public byte[] fileData { get; set; }
-
     public string fileType { get; set; }
 
     public DateTime? uploadDate { get; set; }
+
+    public string filePath { get; set; }
 
     public virtual Project project { get; set; }
 }

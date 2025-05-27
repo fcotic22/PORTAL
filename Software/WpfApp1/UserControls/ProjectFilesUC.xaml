@@ -16,11 +16,12 @@
         <DockPanel Grid.ColumnSpan="2" Background="White">
             <!-- Top Toolbar -->
             <DockPanel Height="45" Background="#2F9395" LastChildFill="False" DockPanel.Dock="Top">
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0">
+                <!--
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0">
                     <Button Height="30" Width="30" Margin="0,0,10,0" Content="s"/>
                     <Button Height="30" Width="30" Margin="0,0,10,0" Content="d"/>
                     <Button Height="30" Width="30" Margin="0,0,10,0" Content="df"/>
-                </StackPanel>
+                </StackPanel> -->
                 <Button x:Name="btnBack" Height="30" Width="120" 
                         Margin="10" Content="Nazad na projekt" 
                         DockPanel.Dock="Right" Click="btnBack_Click"/>
@@ -118,6 +119,10 @@
                 </StackPanel>
                 
                 <DataGrid Name="dgFiles" Margin="0,0,0,10"/>
+                <!--
+                <TreeView x:Name="treeFiles" Margin="0,0,0,10"></TreeView>
+                -->
+
             </DockPanel>
         </DockPanel>
         

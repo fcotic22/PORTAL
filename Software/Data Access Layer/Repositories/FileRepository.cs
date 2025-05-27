@@ -38,7 +38,7 @@ namespace Data_Access_Layer.Repositories
             file.name = entity.name;
             file.description = entity.description;
             file.uploadDate = entity.uploadDate;
-            file.fileData = entity.fileData;
+            file.filePath = entity.filePath;
             file.fileType = entity.fileType;
 
             if (saveChanges)

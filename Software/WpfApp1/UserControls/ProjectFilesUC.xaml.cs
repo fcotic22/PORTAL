@@ -28,9 +28,21 @@ namespace Presentation_Layer.UserControls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            dgFiles.ItemsSource = null;
             dgFiles.ItemsSource = FileService.GetFilesByProjectId(Project.id);
             cmbSubproject.ItemsSource = Enum.GetValues(typeof(Enumerations.ProjectType));
-               
+            //PROVJERITI TREE VIEW MOGUĆNOSTI
+
+            dgFiles.Columns[0].Visibility = Visibility.Hidden;
+            dgFiles.Columns[1].Visibility = Visibility.Hidden;
+            dgFiles.Columns[7].Visibility = Visibility.Hidden;
+            dgFiles.Columns[8].Visibility = Visibility.Hidden;
+
+            dgFiles.Columns[2].Header = "Tip podprojekta";
+            dgFiles.Columns[3].Header = "Naziv datoteke";
+            dgFiles.Columns[4].Header = "Opis";
+            dgFiles.Columns[5].Header = "Tip";
+            dgFiles.Columns[6].Header = "Datum prijenosa";
         }
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
@@ -48,8 +60,7 @@ namespace Presentation_Layer.UserControls
             {
                 string filename = dialog.FileName;
                 string extension = Path.GetExtension(filename);
-                byte[] fileData = System.IO.File.ReadAllBytes(filename);
-
+                
                 txtFileName.Text = Path.GetFileNameWithoutExtension(filename);
 
                 File = new Entities.Models.File
@@ -59,7 +70,7 @@ namespace Presentation_Layer.UserControls
                     description = txtDescription.Text,
                     projectType = (int)(Enumerations.ProjectType)cmbSubproject.SelectedIndex,
                     fileType = extension,
-                    fileData = fileData,
+                    filePath = filename,
                     uploadDate = DateTime.Now,
                 };
 
@@ -92,6 +103,8 @@ namespace Presentation_Layer.UserControls
                     if (result == MessageBoxResult.Yes) // PROMJENA IMENA
                     {
                         txtFileName.Background = Brushes.DarkRed;
+                        txtFileName.Focus(); 
+                        txtFileName.ScrollToEnd();
                         return;
                     }
                     else if (result == MessageBoxResult.No) // PREPISIVANJE DATOTEKE
@@ -114,7 +127,7 @@ namespace Presentation_Layer.UserControls
                     UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno spremljena datoteka na server", NotificationType.Success);
                 }                    
                 ClearForm();
-                RefreshFiles();
+                UserControl_Loaded(sender, e);
             }
             catch 
             {
@@ -158,7 +171,7 @@ namespace Presentation_Layer.UserControls
                     UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno izbrisana datoteka", NotificationType.Success);
                     
                     ClearForm();
-                    RefreshFiles();
+                    UserControl_Loaded(sender, e);
                 }
                 catch
                 {
@@ -195,11 +208,7 @@ namespace Presentation_Layer.UserControls
             txtPath.Visibility = Visibility.Hidden;
             btnRemoveFile.Visibility = Visibility.Hidden;
         }
-        private void RefreshFiles()
-        {
-            dgFiles.ItemsSource = null;
-            dgFiles.ItemsSource = FileService.GetFilesByProjectId(Project.id);
-        }
+        
 
         private bool ValidateForm()
         {

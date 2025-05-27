@@ -21,11 +21,12 @@ namespace Bussiness_Logic_Layer.Services
     public static class FileService
     {
         private static string connectionString = "DefaultEndpointsProtocol=https;AccountName=portalfiles1;AccountKey=yKjraClCZvUMPj2MVMlTldfZVT2by1VBEiMCcdAQ3qUcwwRokjDHNkuy0SPVilikO6zIaLKylTjn+AStoAO6+g==;EndpointSuffix=core.windows.net";
+        private static string shareName = "portalfiles";
         public async static Task AddFile(File file, bool fileExists)
-        { 
-            string shareName = "portalfiles";
+        {
+            byte[] fileData = System.IO.File.ReadAllBytes(file.filePath);
 
-            MemoryStream stream = new MemoryStream(file.fileData);
+            MemoryStream stream = new MemoryStream(fileData);
             ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, (file.name + file.fileType));
 
             ShareFileUploadOptions uploadOptions = new ShareFileUploadOptions
@@ -48,7 +49,6 @@ namespace Bussiness_Logic_Layer.Services
         }
         public async static Task DownloadFile(File file)
         {
-            string shareName = "portalfiles";
             ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, (file.name + file.fileType));
             ShareFileDownloadInfo download = await fileClient.DownloadAsync();
             string downloadsPath = KnownFolders.GetPath(KnownFolder.Downloads);
@@ -60,7 +60,6 @@ namespace Bussiness_Logic_Layer.Services
         }
         public async static Task DeleteFile(File file)
         {
-            string shareName = "portalfiles";
             ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, (file.name + file.fileType));
             ShareFileDownloadInfo download = await fileClient.DownloadAsync();
 
@@ -73,6 +72,7 @@ namespace Bussiness_Logic_Layer.Services
                 repo.Remove(file);
             }
         }
+
         public static List<File> GetFilesByProjectId(int id)
         {
             using (var repo = new FileRepository())
