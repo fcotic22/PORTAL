@@ -350,13 +350,6 @@ public partial class PORTAL_DBContext : DbContext
             entity.Property(e => e.fileData)
                 .IsRequired()
                 .HasColumnType("image");
-            entity.Property(e => e.filePath)
-                .IsRequired()
-                .HasMaxLength(1000)
-                .IsUnicode(false);
-            entity.Property(e => e.fileSize)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.fileType)
                 .IsRequired()
                 .HasMaxLength(255)

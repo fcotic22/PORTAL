@@ -4,52 +4,128 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Presentation_Layer.UserControls"
-                         xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
-             mc:Ignorable="d"  Loaded="UserControl_Loaded"
+             xmlns:notifications="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
              d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="65*"></ColumnDefinition>
-            <ColumnDefinition Width="25*"></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2" LastChildFill="False" Background="White">
-
-            <DockPanel Height="35" Background="#2F9395" LastChildFill="False" DockPanel.Dock="Top">
-                <Button Height="25" Margin="5,0,0,0" Content="s"/>
-                <Button Height="25" Margin="5,0,0,0" Content="d"/>
-                <Button Height="25" Margin="5,0,0,0" Content="df"/>
-                <Button x:Name="btnBack" Height="25" Margin="5,0,5,0" Content="Nazad na projekt" DockPanel.Dock="Right" Click="btnBack_Click"/>
+        
+        <DockPanel Grid.ColumnSpan="2" Background="White">
+            <!-- Top Toolbar -->
+            <DockPanel Height="45" Background="#2F9395" LastChildFill="False" DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="10,0">
+                    <Button Height="30" Width="30" Margin="0,0,10,0" Content="s"/>
+                    <Button Height="30" Width="30" Margin="0,0,10,0" Content="d"/>
+                    <Button Height="30" Width="30" Margin="0,0,10,0" Content="df"/>
+                </StackPanel>
+                <Button x:Name="btnBack" Height="30" Width="120" 
+                        Margin="10" Content="Nazad na projekt" 
+                        DockPanel.Dock="Right" Click="btnBack_Click"/>
             </DockPanel>
 
-            <StackPanel Grid.Column="0" Margin="40,80,30,15" Height="372" Width="298">
-                <Border BorderThickness="1" BorderBrush="Gray" Padding="10" CornerRadius="10" Width="280">
+            <!-- Left Panel - File Input Form -->
+            <StackPanel Margin="40,20,20,20" Width="320" DockPanel.Dock="Left" VerticalAlignment="Top">
+                <Border BorderThickness="1" BorderBrush="#DDDDDD" 
+                        Background="White" Padding="20" 
+                        CornerRadius="8" Effect="{DynamicResource MaterialDesignElevationShadow2}">
                     <StackPanel>
-                        <TextBlock Text="Naziv datoteke *" Margin="0,10,0,5"/>
-                        <TextBox x:Name="txtFileName" Height="30"/>
-                        <TextBlock Text="Opis datoteke" Margin="0,10,0,5"/>
-                        <TextBox x:Name="txtDescription" Height="30"/>
-                        <TextBlock Text="Odnosi se na podprojekt *" Margin="0,10,0,5"/>
-                        <ComboBox x:Name="cmbSubproject" Height="30"/>
-                        <TextBlock Text="Dokument:" Margin="0,10,0,5"/>
-                        <Button x:Name="btnSelectDocument" Content="Odaberi dokument" Height="30" Click="btnSelectDocument_Click"/>
-                        <StackPanel Orientation="Horizontal" Height="25">
-                            <TextBlock x:Name="txtPath" Width="230" Margin="0,10,0,0" Visibility="Hidden"/>
-                            <Button x:Name="btnRemoveFile" Click="btnRemoveFile_Click" Margin="5,8,5,5" FontSize="10" Width="20" Height="20" Content="X" FontWeight="Bold" Background="Red" Foreground="White" Visibility="Hidden"></Button>
+                        <TextBlock Text="Naziv datoteke *" 
+                                   Margin="0,0,0,8" 
+                                   FontWeight="Medium"/>
+                        <TextBox x:Name="txtFileName" 
+                                 Height="35" 
+                                 Padding="8,0"
+                                 VerticalContentAlignment="Center"/>
+                        
+                        <TextBlock Text="Opis datoteke" 
+                                   Margin="0,16,0,8" 
+                                   FontWeight="Medium"/>
+                        <TextBox x:Name="txtDescription" 
+                                 Height="35"
+                                 Padding="8,0"
+                                 VerticalContentAlignment="Center"/>
+                        
+                        <TextBlock Text="Odnosi se na podprojekt *" 
+                                   Margin="0,16,0,8"
+                                   FontWeight="Medium"/>
+                        <ComboBox x:Name="cmbSubproject" 
+                                  Height="35"
+                                  Padding="8,0"
+                                  VerticalContentAlignment="Center"/>
+                        
+                        <TextBlock Text="Dokument:" 
+                                   Margin="0,16,0,8"
+                                   FontWeight="Medium"/>
+                        <Button x:Name="btnSelectDocument" 
+                                Content="Odaberi dokument" 
+                                Height="35"
+                                Background="#2F9395"
+                                Foreground="White"
+                                Click="btnSelectDocument_Click"/>
+                        
+                        <StackPanel Orientation="Horizontal" 
+                                    Height="25" 
+                                    Margin="0,8,0,0">
+                            <TextBlock x:Name="txtPath" 
+                                       Width="230" 
+                                       VerticalAlignment="Center"
+                                       Visibility="Hidden"
+                                       Margin="0,5,0,0"/>
+                            <Button x:Name="btnRemoveFile" 
+                                    Click="btnRemoveFile_Click"
+                                    Width="25" Height="25"
+                                    Content="✕"
+                                    FontWeight="Bold"
+                                    Background="Red"
+                                    Foreground="White"
+                                    Visibility="Hidden"
+                                    Margin="8,0,0,0"/>
                         </StackPanel>
-                        <Button x:Name="btnSave" Content="Unesi" Background="Black" Foreground="White" Height="40" Margin="0,5,0,0" Click="btnSave_Click"/>
+                        
+                        <Button x:Name="btnSave" 
+                                Content="Unesi" 
+                                Background="#2F9395"
+                                Foreground="White"
+                                Height="40"
+                                Margin="0,16,0,0"
+                                Click="btnSave_Click"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
 
-            <StackPanel DockPanel.Dock="Right" Margin="0,32,66,68" Width="511">
-                <DataGrid Name="dgFiles" Height="457" MouseDoubleClick="dgFiles_MouseDoubleClick"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,300,0">
-                    <Button Width="50" Height="30" x:Name="btnDownload" Click="btnDownload_Click" Background="Black" Foreground="White" Content="Skini datoteku"/>
-                    <Button Width="50" Height="30" x:Name="btnDelete" Click="btnDelete_Click" Background="Black"  Foreground="White" Content="Obriši datoteku"/>
+            <!-- Right Panel - Files Grid -->
+            <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="0,20,40,20">
+                <StackPanel DockPanel.Dock="Bottom" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right"
+                            Margin="0,10,0,0">
+                    <Button x:Name="btnDownload"
+                            Width="120" Height="35"
+                            Margin="0,0,10,0"
+                            Click="btnDownload_Click"
+                            Background="#2F9395"
+                            Foreground="White"
+                            Content="Skini datoteku"/>
+                    <Button x:Name="btnDelete"
+                            Width="120" Height="35"
+                            Click="btnDelete_Click"
+                            Background="#FF4444"
+                            Foreground="White"
+                            Content="Obriši datoteku"/>
                 </StackPanel>
-            </StackPanel>
-
+                
+                <DataGrid Name="dgFiles" Margin="0,0,0,10"/>
+            </DockPanel>
         </DockPanel>
-        <notifications:NotificationArea MaxItems="3" x:Name="WindowArea" Position="BottomRight" Grid.Column="1" Margin="0,300,0,0"   />
+        
+        <notifications:NotificationArea 
+            MaxItems="3" 
+            x:Name="WindowArea" 
+            Position="BottomRight" 
+            Grid.Column="1" 
+            Margin="0,0,20,20"/>
     </Grid>
 </UserControl>

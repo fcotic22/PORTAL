@@ -26,6 +26,7 @@
     <PackageReference Include="Notifications.Wpf.Core" Version="2.0.1" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="29.2.4" />
     <PackageReference Include="Syncfusion.Tools.WPF" Version="29.2.4" />
+    <PackageReference Include="WPFCustomMessageBox" Version="1.0.7" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,12 +21,12 @@ namespace Bussiness_Logic_Layer.Services
     public static class FileService
     {
         private static string connectionString = "DefaultEndpointsProtocol=https;AccountName=portalfiles1;AccountKey=yKjraClCZvUMPj2MVMlTldfZVT2by1VBEiMCcdAQ3qUcwwRokjDHNkuy0SPVilikO6zIaLKylTjn+AStoAO6+g==;EndpointSuffix=core.windows.net";
-        public async static void AddNewFile(File file)
-        {  
+        public async static Task AddFile(File file, bool fileExists)
+        { 
             string shareName = "portalfiles";
 
             MemoryStream stream = new MemoryStream(file.fileData);
-            ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, file.name);
+            ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, (file.name + file.fileType));
 
             ShareFileUploadOptions uploadOptions = new ShareFileUploadOptions
             {
@@ -42,29 +42,50 @@ namespace Bussiness_Logic_Layer.Services
 
             using (var repo = new FileRepository())
             {
-                repo.Add(file);
+                if(fileExists) repo.Update(file);
+                else repo.Add(file);
             }
         }
-
         public async static Task DownloadFile(File file)
         {
             string shareName = "portalfiles";
-            ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, file.name);
+            ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, (file.name + file.fileType));
             ShareFileDownloadInfo download = await fileClient.DownloadAsync();
             string downloadsPath = KnownFolders.GetPath(KnownFolder.Downloads);
 
-            using (var fileStream = System.IO.File.OpenWrite(downloadsPath + Path.DirectorySeparatorChar + file.name))
+            using (var fileStream = System.IO.File.OpenWrite(downloadsPath + Path.DirectorySeparatorChar + (file.name + file.fileType)))
             {
                 await download.Content.CopyToAsync(fileStream);
             }
         }
+        public async static Task DeleteFile(File file)
+        {
+            string shareName = "portalfiles";
+            ShareFileClient fileClient = new ShareFileClient(connectionString, shareName, (file.name + file.fileType));
+            ShareFileDownloadInfo download = await fileClient.DownloadAsync();
 
+            //BRISANJE SA SERVERA
+            await fileClient.DeleteIfExistsAsync(default, default);
 
+            //BRISANJE IZ BAZE
+            using (var repo = new FileRepository())
+            {
+                repo.Remove(file);
+            }
+        }
         public static List<File> GetFilesByProjectId(int id)
         {
             using (var repo = new FileRepository())
             {
                 return repo.GetFilesByProjectId(id).ToList();
+            }
+        }
+
+        public static File GetFilesByNameAndType(string name, string type)
+        {
+            using (var repo = new FileRepository())
+            {
+                return repo.GetFilesByNameAndType(name, type).FirstOrDefault();
             }
         }
     }

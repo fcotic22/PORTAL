@@ -1,13 +1,13 @@
 ﻿using Bussiness_Logic_Layer.Services;
-using Data_Access_Layer.Repositories;
 using Entities;
 using Entities.Models;
 using Notifications.Wpf.Core;
-using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
+using System.Windows.Media;
+using WPFCustomMessageBox;
+using static Entities.Enumerations;
 using Path = System.IO.Path;
 
 namespace Presentation_Layer.UserControls
@@ -50,14 +50,14 @@ namespace Presentation_Layer.UserControls
                 string extension = Path.GetExtension(filename);
                 byte[] fileData = System.IO.File.ReadAllBytes(filename);
 
-                txtFileName.Text += Path.GetFileName(filename);
+                txtFileName.Text = Path.GetFileNameWithoutExtension(filename);
 
                 File = new Entities.Models.File
                 {
                     project_id = Project.id,
                     name = txtFileName.Text,
+                    description = txtDescription.Text,
                     projectType = (int)(Enumerations.ProjectType)cmbSubproject.SelectedIndex,
-                    filePath = filename,
                     fileType = extension,
                     fileData = fileData,
                     uploadDate = DateTime.Now,
@@ -71,29 +71,61 @@ namespace Presentation_Layer.UserControls
             }
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if(File != null)
+            txtFileName.Background = null;
+
+            if(ValidateForm() == false) return;
+
+            //UKOLIKO DOĐE DO PROMJENE NAKON UPLOADANJA FILE-a
+            File.name = txtFileName.Text;
+            File.description = txtDescription.Text;
+            File.projectType = (int)(Enumerations.ProjectType)cmbSubproject.SelectedIndex;
+
+            var fileDb = FileService.GetFilesByNameAndType(File.name, File.fileType);
+
+            try
             {
-                try
+                if (fileDb != null) 
                 {
-                    FileService.AddNewFile(File);
+                    var result = CustomMessageBox.ShowYesNoCancel("Već postoji datoteka sa ovim nazivom i tipom. Želite li je prepisati ili promijeniti ime?", "Postojeća datoteka", "Promjeni ime", "Prepiši staru datoteku", "Odustani");
+                    if (result == MessageBoxResult.Yes) // PROMJENA IMENA
+                    {
+                        txtFileName.Background = Brushes.DarkRed;
+                        return;
+                    }
+                    else if (result == MessageBoxResult.No) // PREPISIVANJE DATOTEKE
+                    {
+                        File.uploadDate = DateTime.Now;
+                        File.id = fileDb.id;
+                        File.projectType = (int)(Enumerations.ProjectType)cmbSubproject.SelectedIndex;
+
+                        await FileService.AddFile(File, true); // TRUE za postojanje zapisa u bazi
+                        UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno prepisana datoteka na serveru", NotificationType.Success);
+                    }
+                    else
+                    {
+                        ClearForm();
+                    }
+                }
+                else
+                {
+                    await FileService.AddFile(File, false); // FALSE za nepostojanje zapisa u bazi i dodavanje novog
                     UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno spremljena datoteka na server", NotificationType.Success);
-                    
-                    ClearForm();
-                    dgFiles.ItemsSource = FileService.GetFilesByProjectId(Project.id);
-                }
-                catch 
-                {
-                    UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Došlo je do pogreške prilikom zapisivanja datoteke na server", NotificationType.Error);
-                }
+                }                    
+                ClearForm();
+                RefreshFiles();
             }
-            else
+            catch 
             {
-                UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Molimo odaberite datoteku za učitavanje", NotificationType.Warning);
+                UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Došlo je do pogreške prilikom zapisivanja datoteke na server", NotificationType.Error);
             }
         }
-        private async void dgFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+            
+      
+
+
+        private async void btnDownload_Click(object sender, RoutedEventArgs e)
         {
             var selectedFile = dgFiles.SelectedItem as Entities.Models.File;
             if (selectedFile != null)
@@ -102,21 +134,53 @@ namespace Presentation_Layer.UserControls
                 {
                     await FileService.DownloadFile(selectedFile);
                     UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno preuzeta datoteka", NotificationType.Success);
+
+                    Process.Start("explorer.exe", KnownFolders.GetPath(KnownFolder.Downloads));
                 }
                 catch
                 {
                     UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Došlo je do pogreške prilikom preuzimanja datoteke", NotificationType.Error);
                 }
             }
+            else
+            {
+                UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Molimo odaberite datoteku za preuzimanje", NotificationType.Warning);
+            }
+        }
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedFile = dgFiles.SelectedItem as Entities.Models.File;
+            if (selectedFile != null)
+            {
+                try
+                {
+                    await FileService.DeleteFile(selectedFile);
+                    UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno izbrisana datoteka", NotificationType.Success);
+                    
+                    ClearForm();
+                    RefreshFiles();
+                }
+                catch
+                {
+                    UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Došlo je do pogreške prilikom brisanja datoteke", NotificationType.Error);
+                }
+            }
+            else
+            {
+                UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Molimo odaberite datoteku za brisanje", NotificationType.Warning);
+            }
         }
 
         private void btnRemoveFile_Click(object sender, RoutedEventArgs e)
         {
             File = null;
+            txtFileName.Text = string.Empty;
+            txtDescription.Text = string.Empty;
             txtPath.Text = string.Empty;
             txtPath.Visibility = Visibility.Hidden;
             btnRemoveFile.Visibility = Visibility.Hidden;
             btnSelectDocument.IsEnabled = true;
+            txtFileName.Background = null;
         }
 
         private void ClearForm()
@@ -130,42 +194,26 @@ namespace Presentation_Layer.UserControls
             txtPath.Text = string.Empty;
             txtPath.Visibility = Visibility.Hidden;
             btnRemoveFile.Visibility = Visibility.Hidden;
-            
+        }
+        private void RefreshFiles()
+        {
+            dgFiles.ItemsSource = null;
             dgFiles.ItemsSource = FileService.GetFilesByProjectId(Project.id);
         }
 
-        private async void btnDownload_Click(object sender, RoutedEventArgs e)
+        private bool ValidateForm()
         {
-            var selectedFile = dgFiles.SelectedItem as Entities.Models.File;
-            if (selectedFile != null)
+            if(txtFileName.Text == string.Empty || cmbSubproject.SelectedIndex == -1)
             {
-                try
-                {
-                    await FileService.DownloadFile(selectedFile);
-                    UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno preuzeta datoteka", NotificationType.Success);
-                }
-                catch
-                {
-                    UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Došlo je do pogreške prilikom preuzimanja datoteke", NotificationType.Error);
-                }
+                UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Molimo popunite obavezna polja", NotificationType.Warning);
+                return false;
             }
-        }
-
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            var selectedFile = dgFiles.SelectedItem as Entities.Models.File;
-            if (selectedFile != null)
+            else if(File == null)
             {
-                try
-                {
-                    //await FileService.DownloadFile(selectedFile);
-                    UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Uspješno izbrisana datoteka", NotificationType.Success);
-                }
-                catch
-                {
-                    UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Došlo je do pogreške prilikom brisanja datoteke", NotificationType.Error);
-                }
+                UCHelper.DisplayNotification("DATOTEKE PROJEKTA", "Molimo odaberite datoteku za učitavanje", NotificationType.Warning);
+                return false;
             }
+            else return true;
         }
     }
 }
