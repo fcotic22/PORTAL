@@ -69,5 +69,9 @@ namespace WpfApp1
         {
             GUIManager.Open(new ProjectsUC());
         }
+        private void btnChatbot_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ChatbotUC());
+        }
     }
 }

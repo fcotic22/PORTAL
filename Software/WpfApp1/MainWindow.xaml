@@ -10,26 +10,42 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*" />
             <ColumnDefinition Width="57*" />
-            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="143*" />
         </Grid.ColumnDefinitions>
+
         <DockPanel Grid.ColumnSpan="3">
-            <StackPanel Grid.Column="0" Width="200" Background="#2F9395">
-                <TextBlock Height="35">Funkcije</TextBlock>
-                <Button x:Name="btnProjects" Click="btnProjects_Click">Projekti</Button>
-                <Button x:Name="btnConstructionSites" Click="btnConstructionSites_Click">Gradilišta</Button>
-                <TextBlock>Sredstva</TextBlock>
-                <Button x:Name="btnTools" Click="btnTools_Click">Alat</Button>
-                <Button x:Name="btnVehicles" Click="btnVehicles_Click">Vozila</Button>
-                <Button x:Name="btnResources" Click="btnResources_Click">Resursi</Button>
-                <TextBlock>Administracija</TextBlock>
-                <Button x:Name="btnEmployees" Click="btnEmployees_Click">Zaposlenici</Button>
-                <Button x:Name="btnBuyers" Click="btnBuyers_Click">Kupci</Button>
-                <Button x:Name="btnOrders" Click="btnOrders_Click">Narudžbe</Button>
+            <!-- Zamjena StackPanel-a s Grid-om -->
+            <Grid Width="200" Background="#2F9395">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            </StackPanel>
-            <ContentControl Grid.Column="1" x:Name="contentPanel"></ContentControl>
+                <!-- Gumbi i tekstovi gore -->
+                <StackPanel Grid.Row="0">
+                    <TextBlock Height="35" Foreground="White" FontWeight="Bold" Margin="5">Funkcije</TextBlock>
+                    <Button x:Name="btnProjects" Click="btnProjects_Click">Projekti</Button>
+                    <Button x:Name="btnConstructionSites" Click="btnConstructionSites_Click">Gradilišta</Button>
+                    <TextBlock Foreground="White" FontWeight="Bold" Margin="5">Sredstva</TextBlock>
+                    <Button x:Name="btnTools" Click="btnTools_Click">Alat</Button>
+                    <Button x:Name="btnVehicles" Click="btnVehicles_Click">Vozila</Button>
+                    <Button x:Name="btnResources" Click="btnResources_Click">Resursi</Button>
+                    <TextBlock Foreground="White" FontWeight="Bold" Margin="5">Administracija</TextBlock>
+                    <Button x:Name="btnEmployees" Click="btnEmployees_Click">Zaposlenici</Button>
+                    <Button x:Name="btnBuyers" Click="btnBuyers_Click">Kupci</Button>
+                    <Button x:Name="btnOrders" Click="btnOrders_Click">Narudžbe</Button>
+                </StackPanel>
 
+                <!-- Gumb za chatbot dolje -->
+                <Button Grid.Row="2" x:Name="btnChatbot" Click="btnChatbot_Click" Width="70" Height="70" 
+                        HorizontalAlignment="Center" Margin="0,10">
+                    <Image Source="/Resources/ikonaApp.png" Height="70" Width="70"/>
+                </Button>
+            </Grid>
+
+            <!-- Glavni sadržaj -->
+            <ContentControl Grid.Column="1" x:Name="contentPanel"/>
         </DockPanel>
-
     </Grid>
 </Window>
