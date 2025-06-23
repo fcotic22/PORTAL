@@ -69,14 +69,8 @@
 
         <!-- Top Toolbar -->
         <DockPanel Grid.Row="0" Height="45" Background="#2F9395" LastChildFill="False">
-            <Button x:Name="btnBack" 
-                    Height="30" Width="120" 
-                    Margin="10" 
-                    Content="Nazad" 
-                    DockPanel.Dock="Right"
-                    Background="White"
-                    Foreground="#2F9395"
-                    FontWeight="Medium" Click="btnBack_Click"/>
+            <Button x:Name="btnBack" Height="30" Width="120" Margin="10" Content="Nazad" DockPanel.Dock="Right" Background="White" Foreground="#2F9395" FontWeight="Medium" Click="btnBack_Click"/>
+            <Button x:Name="btnDeleteChat" Height="30" Width="120" Margin="10" Content="Izbriši razgovor" DockPanel.Dock="Right" Background="White" Foreground="#2F9395" FontWeight="Medium" Click="btnDeleteChat_Click"/>
         </DockPanel>
 
         <!-- Chat Messages Area -->

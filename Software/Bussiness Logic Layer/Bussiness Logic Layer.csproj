@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>Bussiness_Logic_Layer</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Files.Shares" Version="12.22.0" />
     <PackageReference Include="GroqSharp" Version="1.1.2" />
+    <PackageReference Include="Microsoft.ML" Version="4.0.2" />
+    <PackageReference Include="Microsoft.ML.FastTree" Version="4.0.0" />
+    <PackageReference Include="Microsoft.ML.TorchSharp" Version="0.22.0" />
+    <PackageReference Include="TorchSharp-cpu" Version="0.102.7" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Data Access Layer\Data Access Layer.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
-
 </Project>

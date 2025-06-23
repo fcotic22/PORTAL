@@ -33,5 +33,6 @@ namespace Bussiness_Logic_Layer.Services
             var response = await GroqClient.CreateChatCompletionAsync(messages.ToArray());
             return response;
         } 
-    }
+    } 
 }
+

@@ -41,7 +41,7 @@ namespace Presentation_Layer.UserControls
 
             DataContext = this;
         }
-
+            
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             chatMessages.ItemsSource = System.Windows.Data.CollectionViewSource.GetDefaultView(Messages);
@@ -95,6 +95,15 @@ namespace Presentation_Layer.UserControls
                 e.Handled = true;
                 btnSend_Click(sender, e);
             }
+        }
+
+        private void btnDeleteChat_Click(object sender, RoutedEventArgs e)
+        {
+            while (Messages.Count > 2)
+            {
+                Messages.RemoveAt(2);
+            }
+            UserControl_Loaded(sender, e);
         }
     }
 
