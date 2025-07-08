@@ -13,7 +13,7 @@ using Microsoft.ML.Transforms;
 
 namespace Bussiness_Logic_Layer
 {
-    public partial class EstimateDeliveryDays
+    public partial class EstimateProductionTime
     {
         public const string RetrainFilePath =  @"C:\Users\user\Downloads\windows_doors_dataset_enhanced_2000.csv";
         public const char RetrainSeparatorChar = ',';

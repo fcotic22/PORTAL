@@ -7,10 +7,10 @@ using System.IO;
 using System.Collections.Generic;
 namespace Bussiness_Logic_Layer
 {
-    public partial class EstimateDeliveryDays
+    public partial class EstimateProductionTime
     {
         /// <summary>
-        /// model input class for EstimateDeliveryDays.
+        /// model input class for EstimateProductionTime.
         /// </summary>
         #region model input class
         public class ModelInput
@@ -84,7 +84,7 @@ namespace Bussiness_Logic_Layer
         #endregion
 
         /// <summary>
-        /// model output class for EstimateDeliveryDays.
+        /// model output class for EstimateProductionTime.
         /// </summary>
         #region model output class
         public class ModelOutput

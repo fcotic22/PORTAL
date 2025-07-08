@@ -73,5 +73,15 @@ namespace WpfApp1
         {
             GUIManager.Open(new ChatbotUC());
         }
+
+        private void btnPrediction_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new ProductionTimePrediction());
+        }
+
+        private void btnFineTuned_Click(object sender, RoutedEventArgs e)
+        {
+            GUIManager.Open(new FinetunedChatbot());
+        }
     }
 }

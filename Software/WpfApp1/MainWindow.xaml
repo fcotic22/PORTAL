@@ -27,6 +27,8 @@
                     <TextBlock Height="35" Foreground="White" FontWeight="Bold" Margin="5">Funkcije</TextBlock>
                     <Button x:Name="btnProjects" Click="btnProjects_Click">Projekti</Button>
                     <Button x:Name="btnConstructionSites" Click="btnConstructionSites_Click">Gradilišta</Button>
+                    <Button x:Name="btnPrediction" Click="btnPrediction_Click">Predikcija</Button>
+                    <Button x:Name="btnFineTuned" Click="btnFineTuned_Click">Fino podešeni chatbot</Button>
                     <TextBlock Foreground="White" FontWeight="Bold" Margin="5">Sredstva</TextBlock>
                     <Button x:Name="btnTools" Click="btnTools_Click">Alat</Button>
                     <Button x:Name="btnVehicles" Click="btnVehicles_Click">Vozila</Button>

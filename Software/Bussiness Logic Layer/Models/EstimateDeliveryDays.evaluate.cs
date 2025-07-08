@@ -10,7 +10,7 @@ using Plotly.NET.LayoutObjects;
 
 namespace Bussiness_Logic_Layer
 {
-    public partial class EstimateDeliveryDays
+    public partial class EstimateProductionTime
     {
         /// <summary>
         /// Permutation feature importance (PFI) is a technique to determine the importance 
