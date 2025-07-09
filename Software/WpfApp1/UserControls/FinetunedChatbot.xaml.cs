@@ -53,7 +53,7 @@ namespace Presentation_Layer.UserControls
                 inferenceParams = new InferenceParams()
                 {
                     MaxTokens = 1024,
-                    AntiPrompts = new List<string> { "User:" }
+                    AntiPrompts = new List<string> { "User:" } 
                 };
             }
             catch (Exception ex)
