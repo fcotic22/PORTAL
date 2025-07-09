@@ -26,10 +26,11 @@ namespace Presentation_Layer.UserControls
         private InferenceParams? inferenceParams;
 
         private void InitializeModel()
-        {
+        {   
             try
             {
-                string modelPath = "C:\\Users\\user\\Downloads\\tinyllama-merged.q4_k_m (4).gguf"; 
+                //string modelPath = "C:\\Users\\user\\Downloads\\tinyllama-merged.q4_k_m (4).gguf";
+                string modelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "tinyllama.gguf");
 
                 var parameters = new ModelParams(modelPath)
                 {
@@ -57,7 +58,7 @@ namespace Presentation_Layer.UserControls
             }
             catch (Exception ex)
             {
-                AppendText($"Greška kod učitavanja modela: {ex.Message} {ex.StackTrace} {ex.Source} {ex.HelpLink} {ex.Data}\n");
+                AppendText($"Greška kod učitavanja modela: {ex.Message} {ex.InnerException} {ex.StackTrace} {ex.Source} {ex.HelpLink} {ex.Data}\n");
             }
         }
 
