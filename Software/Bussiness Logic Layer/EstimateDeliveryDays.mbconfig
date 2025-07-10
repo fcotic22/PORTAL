@@ -1,0 +1,578 @@
+﻿{
+  "Scenario": "Regression",
+  "DataSource": {
+    "Version": 3,
+    "EscapeCharacter": "\"",
+    "ReadMultiLines": false,
+    "KeepDiacritics": false,
+    "KeepPunctuations": false,
+    "AllowQuoting": false,
+    "Type": "TabularFile",
+    "FilePath": "C:\\Users\\user\\Downloads\\windows_doors_dataset_enhanced_2000.csv",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "OrderID",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "ProductType",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Material",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Width_mm",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Height_mm",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "GlassType",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Color",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Quantity",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "OperatorExperienceYears",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "EstimatedProductionTime_min",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "ActualProductionTime_min",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "ProductionCost_EUR",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "DeliveryTime_days",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Area_m2",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "AspectRatio",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "TotalArea_m2",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 3,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.98494774816138553,
+        "RuntimeInSeconds": 5.181,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ],
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "InputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ]
+          },
+          "e2": {
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color",
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfTrees": 1505,
+            "NumberOfLeaves": 3931,
+            "FeatureFraction": 1.0,
+            "LabelColumnName": "ActualProductionTime_min",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.98448657291976482,
+        "RuntimeInSeconds": 1.422,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ],
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "InputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ]
+          },
+          "e2": {
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color",
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfTrees": 367,
+            "NumberOfLeaves": 117,
+            "FeatureFraction": 0.9041671,
+            "LabelColumnName": "ActualProductionTime_min",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.98393370988424578,
+        "RuntimeInSeconds": 0.318,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ],
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "InputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ]
+          },
+          "e2": {
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color",
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfTrees": 34,
+            "NumberOfLeaves": 18,
+            "FeatureFraction": 0.8779045,
+            "LabelColumnName": "ActualProductionTime_min",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.98357084819964025,
+        "RuntimeInSeconds": 0.29,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ],
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "InputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ]
+          },
+          "e2": {
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color",
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfTrees": 17,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 1.0,
+            "LabelColumnName": "ActualProductionTime_min",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.982962099402575,
+        "RuntimeInSeconds": 0.329,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ],
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color"
+            ]
+          },
+          "e1": {
+            "OutputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "InputColumnNames": [
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ]
+          },
+          "e2": {
+            "InputColumnNames": [
+              "ProductType",
+              "Material",
+              "GlassType",
+              "Color",
+              "OrderID",
+              "Width_mm",
+              "Height_mm",
+              "Quantity",
+              "OperatorExperienceYears",
+              "EstimatedProductionTime_min",
+              "ProductionCost_EUR",
+              "DeliveryTime_days",
+              "Area_m2",
+              "AspectRatio",
+              "TotalArea_m2"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfTrees": 6,
+            "NumberOfLeaves": 8,
+            "FeatureFraction": 0.9699328,
+            "LabelColumnName": "ActualProductionTime_min",
+            "FeatureColumnName": "Features"
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "OneHotEncoding",
+      "e1": "ReplaceMissingValues",
+      "e2": "Concatenate",
+      "e3": "FastTreeRegression",
+      "e4": "FastForestRegression",
+      "e5": "LightGbmRegression",
+      "e6": "LbfgsPoissonRegressionRegression",
+      "e7": "SdcaRegression"
+    },
+    "Schema": "e0 * e1 * e2 * (e3 + e4 + e5 + e6 + e7)",
+    "MetricName": "RSquared",
+    "ModelFilePath": "C:\\Users\\user\\Desktop\\ZAVRŠNI\\Software2\\PORTAL\\Software\\Bussiness Logic Layer\\EstimateDeliveryDays.mlnet"
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 2,
+    "Subsampling": false,
+    "Type": "RegressionTrainingOption",
+    "TrainingTime": 100,
+    "LabelColumn": "ActualProductionTime_min",
+    "ValidationOption": {
+      "Version": 0,
+      "Type": "CrossValidationValidationOption",
+      "NumberOfFolds": 5
+    }
+  }
+}
