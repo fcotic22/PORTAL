@@ -147,7 +147,7 @@ namespace Bussiness_Logic_Layer
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath("EstimateDeliveryDays.mlnet");
+        private static string MLNetModelPath = Path.Combine(AppContext.BaseDirectory, "Models\\EstimateDeliveryDays.mlnet");
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 
