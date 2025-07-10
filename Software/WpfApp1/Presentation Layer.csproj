@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Models\tinyllama-merged.q4_k_m %284%29.gguf" />
     <None Remove="Resources\aluSample.jpeg" />
     <None Remove="Resources\facadeSample.png" />
     <None Remove="Resources\glassSample.png" />
@@ -18,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Models\tinyllama.gguf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Models\tinyllama-merged.q4_k_m (4).gguf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

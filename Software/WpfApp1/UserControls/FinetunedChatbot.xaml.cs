@@ -1,12 +1,19 @@
 ﻿using Entities.Models;
 using LLama;
 using LLama.Common;
+using Microsoft.MarkedNet;
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using TorchSharp.Modules;
+using Xceed.Wpf.AvalonDock.Themes;
+using static Plotly.NET.StyleParam.DrawingStyle;
+using static Tensorboard.ApiDef.Types;
 
 namespace Presentation_Layer.UserControls
 {
@@ -30,7 +37,8 @@ namespace Presentation_Layer.UserControls
             try
             {
                 //string modelPath = "C:\\Users\\user\\Downloads\\tinyllama-merged.q4_k_m (4).gguf";
-                string modelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "tinyllama.gguf");
+                //string modelPath = "C:\\Users\\user\\Desktop\\ZAVRSNI\\Software2\\PORTAL\\Software\\WpfApp1\\Models\\tinyllama-merged.q4_k_m (4).gguf";
+                string modelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "tinyllama-merged.q4_k_m (4).gguf");
 
                 var parameters = new ModelParams(modelPath)
                 {
@@ -43,8 +51,7 @@ namespace Presentation_Layer.UserControls
 
                 
                 var chatHistory = new ChatHistory();
-                chatHistory.AddMessage(AuthorRole.System, "You are a helpful assistant with techical know how in window production. You always answear the best you know, and if you are not sure you say that to the user. " +
-                    "You know everything about the window and door production process. If the user ask you for a list you provide it in a structured form.");
+                chatHistory.AddMessage(AuthorRole.System, "You are a chatbot that has been developed to help the user with their queries.The user can ask for general information and you can answer them, however, your main domain is questions related to the production and installation of windows, doors, facades, insulating glass. Questions can be such that you provide advice, but they can also be of a technical nature that you have to answer something related to installation or production. Always answer in a friendly tone unless the user asks in a more serious tone (for example, generating a business email). Always answer strictly in English. If you are not familiar with a term or it is not in your knowledge base, kindly inform the user that this term is not in your domain, and do not try to explain something you do not know.");
                 chatHistory.AddMessage(AuthorRole.User, "Hello");
                 chatHistory.AddMessage(AuthorRole.Assistant, "Hello. How may I help you today?");
 
@@ -74,7 +81,7 @@ namespace Presentation_Layer.UserControls
             if (string.IsNullOrEmpty(input))
                 return;
 
-            AppendText($"Ti: {input}\n");
+            AppendText($"{input}\n");
             InputTextBox.Clear();
 
             try
@@ -88,6 +95,7 @@ namespace Presentation_Layer.UserControls
                         OutputTextBox.ScrollToEnd();
                     });
                 }
+                OutputTextBox.AppendText("\n\n");
             }
             catch (Exception ex)
             {
