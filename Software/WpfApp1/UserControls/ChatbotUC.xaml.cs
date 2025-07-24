@@ -19,6 +19,7 @@ namespace Presentation_Layer.UserControls
             InitializeComponent();
 
             var apiKey = Environment.GetEnvironmentVariable("GROQ_API_KEY", EnvironmentVariableTarget.Machine);
+            
             var apiModel = "llama3-70b-8192";
 
             ChatbotService = new ChatbotService(apiKey, apiModel);

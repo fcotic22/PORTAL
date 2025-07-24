@@ -37,7 +37,7 @@ namespace Presentation_Layer.UserControls
 
                 sampleData.Area_m2 = (sampleData.Width_mm * sampleData.Height_mm) / 1_000_000f;
                 sampleData.AspectRatio = sampleData.Height_mm != 0 ? sampleData.Width_mm / sampleData.Height_mm : 0;
-                    sampleData.TotalArea_m2 = sampleData.Area_m2 * sampleData.Quantity;
+                sampleData.TotalArea_m2 = sampleData.Area_m2 * sampleData.Quantity;
 
                 var result = EstimateProductionTime.Predict(sampleData);
                 txtPredictionResult.Text += "  " + result.Score.ToString();
