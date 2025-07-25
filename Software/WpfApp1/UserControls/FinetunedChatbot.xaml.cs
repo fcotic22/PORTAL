@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using TorchSharp.Modules;
 using Xceed.Wpf.AvalonDock.Themes;
+using static Entities.Enumerations;
 using static Plotly.NET.StyleParam.DrawingStyle;
 using static Tensorboard.ApiDef.Types;
 
@@ -36,8 +37,9 @@ namespace Presentation_Layer.UserControls
         {   
             try
             {
-                string modelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "tinyllama-merged.q4_k_m (4).gguf");
-                 
+                //string modelPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Models", "tinyllama-merged.q4_k_m (4).gguf");
+                string modelPath = System.IO.Path.Combine(KnownFolders.GetPath(KnownFolder.Downloads), "tinyllama-merged.q4_k_m (4).gguf");
+
                 var parameters = new ModelParams(modelPath)
                 {
 
